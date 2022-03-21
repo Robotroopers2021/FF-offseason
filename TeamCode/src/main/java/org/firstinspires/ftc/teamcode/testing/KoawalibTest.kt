@@ -12,6 +12,8 @@ class KoawalibTest {
         const val BL_NAME = "BL"
         const val FR_NAME = "FR"
         const val BR_NAME = "BR"
+        @JvmField var turn_scalar = 0.5
+        @JvmField var aux_tracker = 1.0
     }
     private val flMotor = KMotor(FL_NAME).reverse.brake.zero()
     private val blMotor = KMotor(BL_NAME).reverse.brake.zero()
@@ -25,7 +27,7 @@ class KoawalibTest {
     val drive = KMecanumOdoDrive(
             flMotor, blMotor, frMotor, brMotor,
             OdoConfig(
-                    1892.3724, 2.1, 5.90551,
+                    1892.3724, turn_scalar, aux_tracker,
                     odoLeftEncoder, odoRightEncoder, odoAuxEncoder
             ) ,true
     )

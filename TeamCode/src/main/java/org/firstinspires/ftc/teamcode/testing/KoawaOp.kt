@@ -11,8 +11,8 @@ class KoawaOp : CommandOpMode() {
     private lateinit var robot :  KoawalibTest
 
     override fun mInit() {
+        robot = KoawalibTest()
         bindDrive()
-            robot = KoawalibTest()
     }
 
     private fun bindDrive() {
