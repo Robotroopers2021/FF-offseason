@@ -31,7 +31,7 @@ class PerseusOp : OpMode(){
     fun driveControl() {
         drive = MathUtil.cubicScaling(0.75, -gamepad1.left_stick_y.toDouble()) * 0.85
         strafe = MathUtil.cubicScaling(0.75, gamepad1.left_stick_x.toDouble()) * 0.85
-        rotate = gamepad1.right_stick_x.toDouble() * 0.65
+        rotate = -gamepad1.right_stick_x.toDouble() * 0.65
         fl.power = drive + strafe + rotate
         fr.power = drive - strafe - rotate
         bl.power = drive - strafe + rotate

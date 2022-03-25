@@ -24,6 +24,7 @@ class KoawalibTest {
     private val odoRightEncoder = blMotor
     private val odoAuxEncoder = brMotor
 
+
     val drive = KMecanumOdoDrive(
             flMotor, blMotor, frMotor, brMotor,
             OdoConfig(
