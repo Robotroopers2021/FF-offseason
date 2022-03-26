@@ -12,9 +12,11 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive
 import org.firstinspires.ftc.teamcode.stateMachine.StateMachineBuilder
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence
 import org.firstinspires.ftc.teamcode.vision.Pipeline
+import org.firstinspires.ftc.teamcode.vision.PipelineRed
+import org.firstinspires.ftc.teamcode.vision.WebcamRed
 import org.firstinspires.ftc.teamcode.vision.WebcamTest
 
-@Autonomous(preselectTeleOp = "AkazaRedOp")
+@Autonomous(preselectTeleOp = "AkazaBlueOp")
 class AkazaAutoRedNear : OpMode()  {
 
     private var motionTimer = ElapsedTime()
@@ -27,15 +29,13 @@ class AkazaAutoRedNear : OpMode()  {
 
     private lateinit var  DuckL : DcMotor
 
-    private val webcam = WebcamTest()
+    private val webcam = WebcamRed()
 
     private lateinit var InitialDepositTrajTop : TrajectorySequence
 
     private lateinit var InitialDepositTrajMiddle : TrajectorySequence
 
     private lateinit var InitialDepositTrajBottom : TrajectorySequence
-
-    private lateinit var DuckSpinnerTraj : TrajectorySequence
 
     private fun moveOuttakeToOut(){
         outtakeServo.position = 0.60
@@ -61,15 +61,9 @@ class AkazaAutoRedNear : OpMode()  {
         .state(DuckSpinnerStates.DUCK_SPINNER)
         .onEnter {
             when (webcam.pipeline.cupState) {
-                Pipeline.CupStates.RIGHT -> drive.followTrajectorySequenceAsync(
-                    InitialDepositTrajBottom
-                )
-                Pipeline.CupStates.CENTER -> drive.followTrajectorySequenceAsync(
-                    InitialDepositTrajMiddle
-                )
-                Pipeline.CupStates.LEFT -> drive.followTrajectorySequenceAsync(
-                    InitialDepositTrajTop
-                )
+                PipelineRed.CupStates.RIGHT -> drive.followTrajectorySequenceAsync(InitialDepositTrajBottom)
+                PipelineRed.CupStates.CENTER -> drive.followTrajectorySequenceAsync(InitialDepositTrajMiddle)
+                PipelineRed.CupStates.LEFT -> drive.followTrajectorySequenceAsync(InitialDepositTrajTop)
             }
         }
         .transition{!drive.isBusy}
@@ -84,14 +78,64 @@ class AkazaAutoRedNear : OpMode()  {
         outtakeServo.position = 0.78
         arm.init(hardwareMap)
 
-        DuckSpinnerTraj = drive.trajectorySequenceBuilder(Pose2d (-36.0, 60.0, Math.toRadians(90.0)))
+        InitialDepositTrajTop = drive.trajectorySequenceBuilder(Pose2d (-36.0, 60.0, Math.toRadians(90.0)))
             .setReversed(true)
-            .splineToSplineHeading( Pose2d(-11.0, 40.0, Math.toRadians(110.0)), Math.toRadians(325.0))
+            .splineToSplineHeading( Pose2d(-21.0, 45.0, Math.toRadians(110.0)), Math.toRadians(325.0))
             .waitSeconds(1.0)
             .addTemporalMarker(1.5) {
                 arm.moveArmToTopPos()
             }
             .addTemporalMarker(2.1) {
+                moveOuttakeToOut()
+            }
+            .addTemporalMarker(3.0) {
+                arm.moveArmToBottomPos()
+                moveOuttakeToOpen()
+            }
+            .setReversed(false)
+            .lineToConstantHeading( Vector2d(-59.0, 57.0))
+            .addTemporalMarker {
+                DuckL.setPower( 0.25 )
+            }
+            .waitSeconds( 6.0 )
+            .addTemporalMarker {
+                DuckL.setPower(0.0)
+            }
+            .lineToSplineHeading( Pose2d(-61.0, 33.0, Math.toRadians(0.0)))
+            .build()
+
+        InitialDepositTrajMiddle = drive.trajectorySequenceBuilder(Pose2d (-36.0, 60.0, Math.toRadians(90.0)))
+            .setReversed(true)
+            .splineToSplineHeading( Pose2d(-21.0, 45.0, Math.toRadians(110.0)), Math.toRadians(325.0))
+            .addTemporalMarker(0.1) {
+                arm.moveArmToMidPos()
+            }
+            .addTemporalMarker(1.5) {
+                moveOuttakeToOut()
+            }
+            .addTemporalMarker(3.0) {
+                arm.moveArmToBottomPos()
+                moveOuttakeToOpen()
+            }
+            .setReversed(false)
+            .lineToConstantHeading( Vector2d(-59.0, 57.0))
+            .addTemporalMarker {
+                DuckL.setPower( 0.25 )
+            }
+            .waitSeconds( 6.0 )
+            .addTemporalMarker {
+                DuckL.setPower(0.0)
+            }
+            .lineToSplineHeading( Pose2d(-61.0, 33.0, Math.toRadians(0.0)))
+            .build()
+
+        InitialDepositTrajBottom = drive.trajectorySequenceBuilder(Pose2d (-36.0, 60.0, Math.toRadians(90.0)))
+            .setReversed(true)
+            .splineToSplineHeading( Pose2d(-21.0, 45.0, Math.toRadians(110.0)), Math.toRadians(325.0))
+            .addTemporalMarker(0.1) {
+                arm.autoBottomPos()
+            }
+            .addTemporalMarker(1.5) {
                 moveOuttakeToOut()
             }
             .addTemporalMarker(3.0) {
