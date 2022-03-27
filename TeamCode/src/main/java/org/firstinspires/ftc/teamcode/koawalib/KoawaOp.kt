@@ -30,7 +30,8 @@ class KoawaOp : CommandOpMode() {
 //        driver.leftTrigger.whenPressed(IntakeCommands.IntakeSequenceCommand(robot.intake))
         driver.leftTrigger.whenPressed(IntakeCommands.IntakeOn(robot.intake))
         driver.rightTrigger.whenPressed(IntakeCommands.IntakeReverse(robot.intake))
-        driver.leftBumper.whenPressed(IntakeCommands.IntakeOff(robot.intake))
+        robot.intake.setDefaultCommand(IntakeCommands.IntakeOff(robot.intake))
+        driver.leftTrigger.whenPressed(IntakeCommands.setIntakeSpeed(robot.intake))
     }
 
 //    private fun bindDeposit() {
