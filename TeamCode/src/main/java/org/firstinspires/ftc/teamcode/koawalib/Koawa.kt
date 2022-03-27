@@ -37,7 +37,7 @@ class Koawa {
         odoLeft, odoRight, odoAux
     )), true)
 
-    val intake = Intake(intakeMotor, loadingSensor, IntakeConfig(), 25.0)
+    val intake = Intake(intakeMotor, loadingSensor, IntakeConfig(0.75), 25.0)
 
     var hub = Hub.ALLIANCE_HIGH
 
