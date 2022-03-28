@@ -49,6 +49,7 @@ open class AkazaRedOp : OpMode() {
     lateinit var displayKind: DisplayKind
     lateinit var ledCycleDeadline: Deadline
 
+
     var value = 0.0
 
     var prevTime : Long = 0

@@ -26,14 +26,14 @@ class Koawa {
     private val br = KMotor("BR").brake
 //    private val intakeMotor = KMotorEx(INTAKE_NAME, OpenLoopController())
     val loadingSensor = KDistanceSensor(LOADING_SENSOR_NAME)
-    private val intakeMotor = KMotor(INTAKE_NAME)
+     val intakeMotor = KMotor(INTAKE_NAME)
 
     private val odoLeft = fr
     private val odoRight = bl.reverseEncoder
     private val odoAux = br
 
     val drive = KMecanumOdoDrive(fl, bl, fr, br, ThreeWheelOdometry(OdoConfig(
-        1892.3724, 0.7, 5.90551,
+        1892.3724, 0.857, 1.0,
         odoLeft, odoRight, odoAux
     )), true)
 

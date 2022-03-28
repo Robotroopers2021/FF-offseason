@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.koawalib
 
 import com.asiankoala.koawalib.command.commands.CommandBase
+import com.asiankoala.koawalib.command.commands.InfiniteCommand
 import com.asiankoala.koawalib.command.commands.InstantCommand
 import com.asiankoala.koawalib.command.group.SequentialCommandGroup
 
@@ -30,7 +31,7 @@ object IntakeCommands {
     class IntakeOn(private val intake: Intake) : InstantCommand(intake::turnOn, intake)
     class IntakeOff(private val intake: Intake) : InstantCommand(intake::turnOff, intake)
     class IntakeReverse(private val intake: Intake) : InstantCommand(intake::turnReverse, intake)
-    class setIntakeSpeed(private val intake: Intake) : InstantCommand(intake::setIntakeSpeed,intake)
+//    class setIntakeSpeed(private val intake: Intake) : InstantCommand(intake::setIntakeSpeed,intake)
 
     class IntakeSequenceCommand(
         intake: Intake

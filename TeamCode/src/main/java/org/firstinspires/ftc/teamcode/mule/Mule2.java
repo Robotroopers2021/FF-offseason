@@ -44,10 +44,10 @@ public class Mule2 extends OpMode {
 
         Arm = hardwareMap.dcMotor.get("Arm");
 
-        FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //Set Up Motor Direction
         FR.setDirection(DcMotor.Direction.FORWARD);
         FL.setDirection(DcMotor.Direction.REVERSE);
@@ -62,7 +62,7 @@ public class Mule2 extends OpMode {
     public void loop() {
         drive = -gamepad1.left_stick_y *0.5;
         strafe = gamepad1.left_stick_x *0.5;
-        rotate = gamepad1.right_stick_x *0.5;
+        rotate = -gamepad1.right_stick_x *0.5;
 
         FLPower = (drive + strafe + rotate);
         FRPower = (drive - strafe - rotate);

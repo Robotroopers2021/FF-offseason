@@ -37,7 +37,7 @@ public class MuleTeleop extends OpMode {
     double BLPower;
     double BRPower;
 
-    double ArmPower;
+    double ArmPower =0.5;
 
     @Override
     public void init() {
@@ -49,12 +49,11 @@ public class MuleTeleop extends OpMode {
 
         Arm = hardwareMap.dcMotor.get("Arm");
 
-        distanceSensor = hardwareMap.get(DistanceSensor.class,"distanceSensor");
 
-        FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        FL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        FR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //Set Up Motor Direction
         FR.setDirection(DcMotor.Direction.FORWARD);
         FL.setDirection(DcMotor.Direction.REVERSE);
@@ -69,13 +68,9 @@ public class MuleTeleop extends OpMode {
 
     @Override
     public void loop() {
-        double value = distanceSensor.getDistance(DistanceUnit.INCH);
-        telemetry.addData("Distance",value);
-        telemetry.update();
-
-        drive = -gamepad1.left_stick_y *0.75;
-        strafe = gamepad1.left_stick_x *0.75;
-        rotate = -gamepad1.right_stick_x *0.75;
+        drive = -gamepad1.left_stick_y;
+        strafe = gamepad1.left_stick_x;
+        rotate = -gamepad1.right_stick_x;
 
         FLPower = (drive + strafe + rotate);
         FRPower = (drive - strafe - rotate);
@@ -86,7 +81,6 @@ public class MuleTeleop extends OpMode {
         FR.setPower(-FRPower);
         BL.setPower(-BLPower);
         BR.setPower(-BRPower);
-
 
         if(gamepad1.dpad_up) {
             Arm.setPower(ArmPower);
@@ -101,14 +95,9 @@ public class MuleTeleop extends OpMode {
         else {
             Arm.setPower(0);
         }
-//        if (value < 3) {
-//            Arm.setPower(0.3);
-//        }
-//        else {
-//            Arm.setPower(0);
-//        }
     }
-}
+    }
+
 
 
 
