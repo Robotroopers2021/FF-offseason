@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.mule
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.DcMotor
@@ -19,31 +18,27 @@ class MarketingRobot : OpMode() {
 
     private var motionTimer = ElapsedTime()
 
-    var drive = 0.0
-    var strafe = 0.0
-    var rotate = 0.0
-
     fun driveForward() {
-        fl.power = 0.5
-        fr.power = 0.5
-        bl.power = 0.5
-        br.power = 0.5
+        fl.power = 0.1
+        fr.power = 0.1
+        bl.power = 0.1
+        br.power = 0.1
     }
 
     fun driveBackwards() {
-        fl.power = -0.5
-        fr.power = -0.5
-        bl.power = -0.5
-        br.power = -0.5
+        fl.power = -0.1
+        fr.power = -0.1
+        bl.power = -0.1
+        br.power = -0.1
     }
 
-    fun removeError() {
-        fl.power = -0.005
-        fr.power = 0.005
-        bl.power = -0.005
-        br.power = 0.005
+    fun armLeft() {
+        arm.power = 0.1
     }
 
+    fun armRight() {
+        arm.power = -0.1
+    }
 
     override fun init() {
         fl = hardwareMap.get(DcMotor::class.java, "FL")
@@ -63,19 +58,15 @@ class MarketingRobot : OpMode() {
     }
 
     override fun loop() {
-        if (motionTimer.seconds() < 0.1) {
-            removeError()
-        }
-        if (motionTimer.seconds() < 2.9 && motionTimer.seconds() > 0.1) {
+        if (motionTimer.seconds() < 2.0) {
             driveForward()
+            armLeft()
         }
-        if (motionTimer.seconds() > 3.0 && motionTimer.seconds() < 3.1 ) {
-            removeError()
-        }
-        if (motionTimer.seconds() > 3.1) {
+        if (motionTimer.seconds() > 2.0) {
             driveBackwards()
+            armRight()
         }
-        if (motionTimer.seconds() > 6.0) {
+        if (motionTimer.seconds() > 4.0) {
             motionTimer.reset()
         }
     }
