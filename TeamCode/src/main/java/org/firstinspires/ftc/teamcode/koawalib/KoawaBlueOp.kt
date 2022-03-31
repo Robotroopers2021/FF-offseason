@@ -43,7 +43,7 @@ class KoawaBlueOp : CommandOpMode() {
         robot.drive.setDefaultCommand(MecanumDriveCommand(
             robot.drive,
             driver.leftStick,
-            driver.rightStick.xInverted,
+            driver.rightStick.xInverted.yInverted,
             1.0, 1.0, 1.0,
             xScalar = 0.7, yScalar = 0.7, rScalar = 0.7,
         ))
@@ -53,22 +53,44 @@ class KoawaBlueOp : CommandOpMode() {
 //        driver.leftTrigger.whenPressed(IntakeCommands.IntakeSequenceCommand(robot.intake))
         driver.leftTrigger.whenPressed(IntakeCommands.IntakeOn(robot.intake))
         driver.rightTrigger.whenPressed(IntakeCommands.IntakeReverse(robot.intake))
-        InfiniteCommand({ robot.intake.turnOff() }, robot.intake)
+//        InfiniteCommand({ robot.intake.turnOff() }, robot.intake)
 //        driver.leftTrigger.whenPressed(IntakeCommands.setIntakeSpeed(robot.intake))
     }
 
     fun goToPoint() {
-        driver.rightTrigger.onPress(
-            GoToPointCommand(robot.drive,
-                Pose(36.0, 24.0),
-                2.0, 2.0.radians,
-                maxMoveSpeed = 0.8,
-                maxTurnSpeed = 0.8,
-            )
-                .pauseFor(2.0)
-                .andThen(GoToPointCommand(robot.drive,
-                    Pose(24.0, 36.0),
-                    2.0,
+//        driver.rightTrigger.onPress(
+//            GoToPointCommand(robot.drive,
+//                Pose(36.0, 24.0),
+//                2.0, 2.0.radians,
+//                maxMoveSpeed = 0.8,
+//                maxTurnSpeed = 0.8,
+//            )
+//                .pauseFor(2.0)
+//                .andThen(GoToPointCommand(robot.drive,
+//                    Pose(24.0, 36.0),
+//                    2.0,
+//                    2.0.radians,
+//                    stop = true,
+//                    maxMoveSpeed = 0.8,
+//                    maxTurnSpeed = 0.8,
+//                    isHeadingLocked = true,
+//                    headingLockAngle = 90.0.radians
+//                ))
+//                .pauseFor(2.0)
+//                .andThen(
+//                    GoToPointCommand(robot.drive,
+//                    Pose(),
+//                    2.0,
+//                    2.0.radians,
+//                    stop = true,
+//                    maxMoveSpeed = 0.8,
+//                    maxTurnSpeed = 0.8,
+//                    isHeadingLocked = true,
+//                    headingLockAngle = 0.0
+//                )
+//                )
+//        )
+        driver.dpadUp.onPress(GoToPointCommand(robot.drive, Pose(3.0, 30.0),2.0,
                     2.0.radians,
                     stop = true,
                     maxMoveSpeed = 0.8,
@@ -76,20 +98,6 @@ class KoawaBlueOp : CommandOpMode() {
                     isHeadingLocked = true,
                     headingLockAngle = 90.0.radians
                 ))
-                .pauseFor(2.0)
-                .andThen(
-                    GoToPointCommand(robot.drive,
-                    Pose(),
-                    2.0,
-                    2.0.radians,
-                    stop = true,
-                    maxMoveSpeed = 0.8,
-                    maxTurnSpeed = 0.8,
-                    isHeadingLocked = true,
-                    headingLockAngle = 0.0
-                )
-                )
-        )
     }
 
     fun bindSpinnerBlue() {

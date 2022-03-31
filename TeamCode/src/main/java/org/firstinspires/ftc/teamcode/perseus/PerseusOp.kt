@@ -61,7 +61,7 @@ class PerseusOp : OpMode(){
             arm.power = 0.50
         }
         if (gamepad1.right_bumper) {
-            arm.power = -0.15
+            arm.power = -0.30
         }
         if (!gamepad1.left_bumper && !gamepad1.right_bumper) {
             arm.power = 0.0
@@ -70,10 +70,10 @@ class PerseusOp : OpMode(){
 
     fun turretControl() {
         if (gamepad1.y) {
-            turret.power = 0.25
+            turret.power = 0.5
         }
         if (gamepad1.a) {
-            turret.power = -0.25
+            turret.power = -0.5
         }
         if (!gamepad1.y && !gamepad1.a) {
             turret.power = 0.0
@@ -85,9 +85,11 @@ class PerseusOp : OpMode(){
             slides.position =0.0
         }
         if (gamepad1.b) {
-            slides.position = 0.2
+            slides.position = 0.4
+            clocking.position= 0.15
         }
     }
+
 
     private enum class DuckSpinnerStates {
         RUN_SLOW,
@@ -166,9 +168,10 @@ class PerseusOp : OpMode(){
         slides.direction = Servo.Direction.REVERSE
 
         slides.position = 0.0
-        clocking.position = 0.25
+        clocking.position = 0.0
 
         telemetry.addData("STATUS", "Initialized")
+        telemetry.speak("System dot Print el en Odometry")
         telemetry.update()
     }
 

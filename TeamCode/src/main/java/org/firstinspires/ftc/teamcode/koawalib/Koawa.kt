@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.koawalib
 
 import com.acmerobotics.dashboard.config.Config
+import com.asiankoala.koawalib.control.MotionProfileController
 import com.asiankoala.koawalib.control.OpenLoopController
 import com.asiankoala.koawalib.hardware.motor.KMotor
 import com.asiankoala.koawalib.hardware.motor.KMotorEx
 import com.asiankoala.koawalib.hardware.sensor.AxesSigns
 import com.asiankoala.koawalib.hardware.sensor.KDistanceSensor
 import com.asiankoala.koawalib.hardware.sensor.KIMU
+import com.asiankoala.koawalib.hardware.sensor.KLimitSwitch
 import com.asiankoala.koawalib.hardware.servo.KServo
 import com.asiankoala.koawalib.subsystem.drive.KMecanumOdoDrive
 import com.asiankoala.koawalib.subsystem.intake.IntakeConfig
@@ -24,6 +26,8 @@ class Koawa {
     companion object HardwareConstants {
         const val INTAKE_NAME = "Intake"
         const val LOADING_SENSOR_NAME = "dSensor"
+        const val TURRET_NAME = "turret"
+        const val TURRET_LIMIT_SWITCH_NAME = "turretLimitSwitch"
     }
     private val fl = KMotor("FL").brake.reverse
     private val bl = KMotor("BL").brake.reverse
@@ -34,6 +38,8 @@ class Koawa {
     private val slidesServo = KServo("Slides")
     val loadingSensor = KDistanceSensor(LOADING_SENSOR_NAME)
     val intakeMotor = KMotor(INTAKE_NAME)
+//    private val turretLimitSwitch = KLimitSwitch(TURRET_LIMIT_SWITCH_NAME)
+//    private val turretMotor = KMotorEx(TURRET_NAME, MotionProfileController(Turret.config))
 
     private val odoLeft = bl.zero().reverseEncoder
     private val odoAux = br.zero().reverseEncoder

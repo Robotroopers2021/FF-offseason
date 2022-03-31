@@ -10,7 +10,7 @@ import com.asiankoala.koawalib.subsystem.ZeroableDeviceSubsystem
 class Turret(motor: KMotorEx, limitSwitch: KLimitSwitch) : ZeroableDeviceSubsystem(motor, limitSwitch) {
     @Config
     companion object TurretConstants {
-        @JvmField val config = MotionProfileConfig()
+//        @JvmField val config = MotionProfileConfig(PIDFConfig())
         const val zeroPosition = 0.0
         const val homeAngle = 0.0
         const val allianceAngle = 0.0
