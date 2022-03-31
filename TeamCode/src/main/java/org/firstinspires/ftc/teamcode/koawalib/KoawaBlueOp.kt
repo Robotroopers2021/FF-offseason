@@ -28,6 +28,7 @@ class KoawaBlueOp : CommandOpMode() {
         bindIntake()
         bindSpinnerBlue()
         bindDrive()
+        bindArm()
         goToPoint()
 //        bindDeposit()
     }
@@ -37,6 +38,7 @@ class KoawaBlueOp : CommandOpMode() {
         Logger.addTelemetryData("dSensor", robot.loadingSensor.invokeDouble())
         Logger.addTelemetryData("driver powers", robot.drive.powers)
         Logger.addTelemetryData("position", robot.drive.position)
+        robot.arm.updateTelemetry()
     }
 
     fun bindDrive() {
@@ -90,7 +92,7 @@ class KoawaBlueOp : CommandOpMode() {
 //                )
 //                )
 //        )
-        driver.dpadUp.onPress(GoToPointCommand(robot.drive, Pose(3.0, 30.0),2.0,
+        driver.dpadDown.onPress(GoToPointCommand(robot.drive, Pose(3.0, 30.0),2.0,
                     2.0.radians,
                     stop = true,
                     maxMoveSpeed = 0.8,
@@ -110,8 +112,13 @@ class KoawaBlueOp : CommandOpMode() {
                 .pauseFor(0.4)
                 .andThen(DuckSpinnerCommand (0.0, robot.duckSpinner ))
         )
-
     }
+
+    fun bindArm() {
+        driver.a.onPress(ArmCommands.TopPos(robot.arm))
+    }
+
+
 
 
 //    private fun bindDeposit() {

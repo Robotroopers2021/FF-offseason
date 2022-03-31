@@ -26,8 +26,9 @@ class Koawa {
     companion object HardwareConstants {
         const val INTAKE_NAME = "Intake"
         const val LOADING_SENSOR_NAME = "dSensor"
-        const val TURRET_NAME = "turret"
+        const val TURRET_NAME = "Turret"
         const val TURRET_LIMIT_SWITCH_NAME = "turretLimitSwitch"
+        const val ARM_NAME = "Arm"
     }
     private val fl = KMotor("FL").brake.reverse
     private val bl = KMotor("BL").brake.reverse
@@ -39,7 +40,8 @@ class Koawa {
     val loadingSensor = KDistanceSensor(LOADING_SENSOR_NAME)
     val intakeMotor = KMotor(INTAKE_NAME)
 //    private val turretLimitSwitch = KLimitSwitch(TURRET_LIMIT_SWITCH_NAME)
-//    private val turretMotor = KMotorEx(TURRET_NAME, MotionProfileController(Turret.config))
+    private val turretMotor = KMotorEx(TURRET_NAME, MotionProfileController(Turret.config))
+    private val armMotor = KMotorEx(ARM_NAME, MotionProfileController(Arm.config))
 
     private val odoLeft = bl.zero().reverseEncoder
     private val odoAux = br.zero().reverseEncoder
@@ -52,6 +54,8 @@ class Koawa {
     val duckSpinner = DuckSpinner(duckSpinnerMotor)
     val intake = Intake(intakeMotor, loadingSensor, IntakeConfig(0.75), 25.0)
     val slides = Slides(slidesServo)
+    val arm = Arm(armMotor)
+//    val turret = Turret(turretMotor, turretLimitSwitch)
 }
 
     var hub = Hub.ALLIANCE_HIGH
