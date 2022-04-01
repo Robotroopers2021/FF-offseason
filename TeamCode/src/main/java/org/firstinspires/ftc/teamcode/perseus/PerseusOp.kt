@@ -85,8 +85,7 @@ class PerseusOp : OpMode(){
             slides.position =0.0
         }
         if (gamepad1.b) {
-            slides.position = 0.4
-            clocking.position= 0.15
+            slides.position = 0.8
         }
     }
 
@@ -168,7 +167,6 @@ class PerseusOp : OpMode(){
         slides.direction = Servo.Direction.REVERSE
 
         slides.position = 0.0
-        clocking.position = 0.0
 
         telemetry.addData("STATUS", "Initialized")
         telemetry.speak("System dot Print el en Odometry")

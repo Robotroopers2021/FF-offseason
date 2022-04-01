@@ -5,7 +5,6 @@ import com.asiankoala.koawalib.command.commands.CommandBase
 object ArmCommands {
     open class ArmCommand(private val arm: Arm, private val angle: Double) : CommandBase() {
         override fun execute() {
-            arm.setArmAngle(angle)
         }
 
         override val isFinished: Boolean
@@ -13,6 +12,7 @@ object ArmCommands {
 
         init {
             addRequirements(arm)
+            arm.setArmAngle(angle)
         }
     }
 

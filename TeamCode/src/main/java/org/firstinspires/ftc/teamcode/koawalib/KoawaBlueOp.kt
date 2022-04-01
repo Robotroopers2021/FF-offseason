@@ -38,7 +38,7 @@ class KoawaBlueOp : CommandOpMode() {
         Logger.addTelemetryData("dSensor", robot.loadingSensor.invokeDouble())
         Logger.addTelemetryData("driver powers", robot.drive.powers)
         Logger.addTelemetryData("position", robot.drive.position)
-        robot.arm.updateTelemetry()
+        Logger.addTelemetryData("current position", robot.arm.currentPosition)
     }
 
     fun bindDrive() {
@@ -49,6 +49,10 @@ class KoawaBlueOp : CommandOpMode() {
             1.0, 1.0, 1.0,
             xScalar = 0.7, yScalar = 0.7, rScalar = 0.7,
         ))
+    }
+
+    fun bindSlides() {
+
     }
 
     fun bindIntake() {

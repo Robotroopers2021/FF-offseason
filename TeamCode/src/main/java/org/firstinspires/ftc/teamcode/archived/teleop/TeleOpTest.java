@@ -121,7 +121,7 @@ public class TeleOpTest extends OpMode {
 
         double value = Lock.getDistance(DistanceUnit.INCH);
 
-        TelemetryPacket packet = new TelemetryPacket();
+//        TelemetryPacket packet = new TelemetryPacket();
 
         drive = -gamepad1.left_stick_y;
         strafe = gamepad1.left_stick_x;

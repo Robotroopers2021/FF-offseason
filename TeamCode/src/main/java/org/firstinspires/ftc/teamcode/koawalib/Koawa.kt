@@ -36,12 +36,12 @@ class Koawa {
     private val br = KMotor("BR").brake
 
     private val duckSpinnerMotor = KMotor("Duck").brake
-    private val slidesServo = KServo("Slides")
+    private val slidesServo = KServo("Slides").startAt(0.9)
     val loadingSensor = KDistanceSensor(LOADING_SENSOR_NAME)
     val intakeMotor = KMotor(INTAKE_NAME)
 //    private val turretLimitSwitch = KLimitSwitch(TURRET_LIMIT_SWITCH_NAME)
     private val turretMotor = KMotorEx(TURRET_NAME, MotionProfileController(Turret.config))
-    private val armMotor = KMotorEx(ARM_NAME, MotionProfileController(Arm.config))
+    private val armMotor = KMotorEx(ARM_NAME, MotionProfileController(Arm.config)).brake.resetEncoder as KMotorEx
 
     private val odoLeft = bl.zero().reverseEncoder
     private val odoAux = br.zero().reverseEncoder

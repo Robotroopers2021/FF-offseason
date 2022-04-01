@@ -12,27 +12,33 @@ import com.asiankoala.koawalib.subsystem.DeviceSubsystem
 class Arm(private val motor: KMotorEx) : DeviceSubsystem() {
     @Config
     companion object ArmConstants {
-        @JvmField val config = MotionProfileConfig(PIDFConfig(0.0,0.0,0.0,
-            ArmFeedforward(0.0, FeedforwardCoefficients(0.0,0.0), 0.0),
-            0.0,0.0,0.0),0.0,0.0)
-       const val topPosition = 0.0
+        @JvmField var kp = 0.015
+        @JvmField var ki = 0.0
+        @JvmField var kd = 0.0
+        @JvmField var kcos = 0.0
+        @JvmField var kStatic = 0.0
+        @JvmField var maxVelocity = 30.0
+        @JvmField var maxAcceleration = 30.0
+        val config = MotionProfileConfig(PIDFConfig(kp,ki,kd,
+            ArmFeedforward(kcos, FeedforwardCoefficients(0.0,0.0), kStatic),
+            2.0, Double.NaN,592.0/90.0),maxVelocity, maxAcceleration)
+       const val topPosition = -60.0
         const val midPosition = 0.0
         const val bottomPosition = 0.0
         const val sharedPosition = 0.0
         const val zeroPosition = 0.0
-
-
     }
 
     val isAtTarget get() = motor.isAtTarget()
+
+    val currentPosition get() = motor.position  / config.pidConfig.ticksPerUnit
 
     fun setArmAngle(angle: Double) {
         motor.setMotionProfileTarget(angle)
     }
 
-    fun updateTelemetry() {
-        val packet = TelemetryPacket()
-        packet.put("config", config)
-
+    override fun periodic() {
+        motor.update()
     }
+
 }
