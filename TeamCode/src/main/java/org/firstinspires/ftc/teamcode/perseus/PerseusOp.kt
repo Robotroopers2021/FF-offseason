@@ -85,7 +85,7 @@ class PerseusOp : OpMode(){
             slides.position =0.0
         }
         if (gamepad1.b) {
-            slides.position = 0.8
+            slides.position = 0.9
         }
     }
 

@@ -1,13 +1,13 @@
-package org.firstinspires.ftc.teamcode.koawalib
+package org.firstinspires.ftc.teamcode.koawalib.commands
 
 import com.asiankoala.koawalib.command.commands.CommandBase
-import com.asiankoala.koawalib.command.commands.InfiniteCommand
 import com.asiankoala.koawalib.command.commands.InstantCommand
 import com.asiankoala.koawalib.command.group.SequentialCommandGroup
+import org.firstinspires.ftc.teamcode.koawalib.subsystem.Intake
 
 object IntakeCommands {
     class IntakeSmartCommand(private val intake: Intake) : CommandBase() {
-        override fun init() {
+        override fun initialize() {
             intake.startReading()
             intake.turnOn()
         }
@@ -36,6 +36,6 @@ object IntakeCommands {
     class IntakeSequenceCommand(
         intake: Intake
     ) : SequentialCommandGroup(
-        IntakeSmartCommand(intake),
+        IntakeSmartCommand(intake)
     )
 }

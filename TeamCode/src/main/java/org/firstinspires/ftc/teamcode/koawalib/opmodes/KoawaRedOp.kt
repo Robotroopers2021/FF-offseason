@@ -1,19 +1,13 @@
-package org.firstinspires.ftc.teamcode.koawalib
+package org.firstinspires.ftc.teamcode.koawalib.opmodes
 
 import com.asiankoala.koawalib.command.CommandOpMode
-import com.asiankoala.koawalib.command.CommandScheduler
 import com.asiankoala.koawalib.command.commands.InfiniteCommand
-import com.asiankoala.koawalib.command.commands.InstantCommand
-import com.asiankoala.koawalib.command.commands.WaitCommand
-import com.asiankoala.koawalib.command.group.SequentialCommandGroup
-import com.asiankoala.koawalib.hardware.motor.KMotor
-import com.asiankoala.koawalib.hardware.sensor.KDistanceSensor
 import com.asiankoala.koawalib.subsystem.drive.MecanumDriveCommand
-import com.asiankoala.koawalib.subsystem.intake.IntakeConfig
 import com.asiankoala.koawalib.util.Logger
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
-import org.firstinspires.ftc.teamcode.koawalib.IntakeCommands.IntakeOff
+import org.firstinspires.ftc.teamcode.koawalib.commands.IntakeCommands
 import org.firstinspires.ftc.teamcode.koawalib.Koawa
+import org.firstinspires.ftc.teamcode.koawalib.subsystem.DuckSpinnerCommand
 
 @TeleOp
 class KoawaRedOp : CommandOpMode() {

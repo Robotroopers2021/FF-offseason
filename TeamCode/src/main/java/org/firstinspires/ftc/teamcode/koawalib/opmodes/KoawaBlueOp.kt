@@ -1,28 +1,24 @@
-package org.firstinspires.ftc.teamcode.koawalib
+package org.firstinspires.ftc.teamcode.koawalib.opmodes
 
 import com.asiankoala.koawalib.command.CommandOpMode
-import com.asiankoala.koawalib.command.CommandScheduler
 import com.asiankoala.koawalib.command.commands.GoToPointCommand
 import com.asiankoala.koawalib.command.commands.InfiniteCommand
-import com.asiankoala.koawalib.command.commands.InstantCommand
-import com.asiankoala.koawalib.command.commands.WaitCommand
-import com.asiankoala.koawalib.command.group.SequentialCommandGroup
-import com.asiankoala.koawalib.hardware.motor.KMotor
-import com.asiankoala.koawalib.hardware.sensor.KDistanceSensor
 import com.asiankoala.koawalib.math.Pose
 import com.asiankoala.koawalib.math.radians
 import com.asiankoala.koawalib.subsystem.drive.MecanumDriveCommand
-import com.asiankoala.koawalib.subsystem.intake.IntakeConfig
 import com.asiankoala.koawalib.util.Logger
+import com.asiankoala.koawalib.util.LoggerConfig
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
-import org.firstinspires.ftc.teamcode.koawalib.IntakeCommands.IntakeOff
+import org.firstinspires.ftc.teamcode.koawalib.commands.ArmCommands
+import org.firstinspires.ftc.teamcode.koawalib.commands.IntakeCommands
 import org.firstinspires.ftc.teamcode.koawalib.Koawa
+import org.firstinspires.ftc.teamcode.koawalib.subsystem.DuckSpinnerCommand
 
 @TeleOp
 class KoawaBlueOp : CommandOpMode() {
     private lateinit var robot: Koawa
     override fun mInit() {
-        Logger.verboseLogging()
+        LoggerConfig(isLogging = true,  isDebugging = true)
         robot = Koawa()
         robot.drive.setStartPose(Pose(0.0, 0.0, 90.0.radians))
         bindIntake()
@@ -30,11 +26,19 @@ class KoawaBlueOp : CommandOpMode() {
         bindDrive()
         bindArm()
         goToPoint()
+        robot.armMotor.disable()
 //        bindDeposit()
+    }
+
+    override fun mStart() {
+        robot.armMotor.enable()
+        robot.arm.setArmAngle(-90.0)
     }
 
     override fun mLoop() {
         robot.imu.periodic()
+        robot.ArmEncoder.update()
+        robot.TurretEncoder.update()
         Logger.addTelemetryData("dSensor", robot.loadingSensor.invokeDouble())
         Logger.addTelemetryData("driver powers", robot.drive.powers)
         Logger.addTelemetryData("position", robot.drive.position)
@@ -59,7 +63,7 @@ class KoawaBlueOp : CommandOpMode() {
 //        driver.leftTrigger.whenPressed(IntakeCommands.IntakeSequenceCommand(robot.intake))
         driver.leftTrigger.whenPressed(IntakeCommands.IntakeOn(robot.intake))
         driver.rightTrigger.whenPressed(IntakeCommands.IntakeReverse(robot.intake))
-//        InfiniteCommand({ robot.intake.turnOff() }, robot.intake)
+        InfiniteCommand({ robot.intake.turnOff() }, robot.intake)
 //        driver.leftTrigger.whenPressed(IntakeCommands.setIntakeSpeed(robot.intake))
     }
 

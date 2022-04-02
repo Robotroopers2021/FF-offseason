@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.koawalib
+package org.firstinspires.ftc.teamcode.koawalib.commands
 
 import com.asiankoala.koawalib.hardware.servo.KServo
 

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.koawalib
+package org.firstinspires.ftc.teamcode.koawalib.subsystem
 
 import com.asiankoala.koawalib.command.commands.InstantCommand
 import com.asiankoala.koawalib.hardware.motor.KMotor
