@@ -33,7 +33,7 @@ class Koawa {
     val intakeMotor = KMotor("Intake")
     val turretLimitSwitch = KLimitSwitch("limitSwitch")
     val turretMotor = KMotor("turret").brake
-    val armMotor = KMotor("Arm").brake
+    val armMotor = KMotor("Arm").float
 
     val LeftEncoder = Encoder(bl, 1892.3724, true).reversed.zero()
     val PerpEncoder = Encoder(br, 1892.3724, true).reversed.zero()
