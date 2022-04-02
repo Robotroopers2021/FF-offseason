@@ -15,7 +15,7 @@ object ArmCommands {
 
         override fun initialize() {
             addRequirements(arm)
-            arm.setArmAngle(angle)
+            arm.setPIDTarget(angle)
         }
     }
 

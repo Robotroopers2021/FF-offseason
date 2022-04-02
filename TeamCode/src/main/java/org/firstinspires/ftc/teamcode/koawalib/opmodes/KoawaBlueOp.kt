@@ -26,23 +26,16 @@ class KoawaBlueOp : CommandOpMode() {
         bindDrive()
         bindArm()
         goToPoint()
-        robot.armMotor.disable()
 //        bindDeposit()
-    }
-
-    override fun mStart() {
-        robot.armMotor.enable()
-        robot.arm.setArmAngle(-90.0)
     }
 
     override fun mLoop() {
         robot.imu.periodic()
-        robot.ArmEncoder.update()
-        robot.TurretEncoder.update()
+        robot.armEncoder.update()
+        robot.turretEncoder.update()
         Logger.addTelemetryData("dSensor", robot.loadingSensor.invokeDouble())
         Logger.addTelemetryData("driver powers", robot.drive.powers)
         Logger.addTelemetryData("position", robot.drive.position)
-        Logger.addTelemetryData("current position", robot.arm.currentPosition)
     }
 
     fun bindDrive() {

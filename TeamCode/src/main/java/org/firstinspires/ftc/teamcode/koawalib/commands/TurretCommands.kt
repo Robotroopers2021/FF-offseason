@@ -13,11 +13,11 @@ object TurretCommands {
 
         init {
             addRequirements(turret)
-            turret.setTurretAngle(angle)
+            turret.setPIDTarget(angle)
         }
     }
 
-    class Home(turret: Turret) : TurretCommand(turret, Turret.homeAngle)
+    class Home(turret: Turret) : TurretCommand(turret, Turret.turretHomeAngle)
     class SharedBlue(turret: Turret) : TurretCommand(turret, Turret.sharedAngleBlue)
     class SharedRed(turret: Turret) : TurretCommand(turret, Turret.sharedAngleRed)
     class AllianceBlue(turret: Turret) : TurretCommand(turret, Turret.allianceAngleBlue)

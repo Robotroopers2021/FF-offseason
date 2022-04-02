@@ -21,7 +21,7 @@ object IntakeCommands {
         }
 
         override val isFinished: Boolean
-            get() = intake.isMineralIn
+            get() = intake.hasMineral
 
         init {
             addRequirements(intake)
@@ -31,7 +31,6 @@ object IntakeCommands {
     class IntakeOn(private val intake: Intake) : InstantCommand(intake::turnOn, intake)
     class IntakeOff(private val intake: Intake) : InstantCommand(intake::turnOff, intake)
     class IntakeReverse(private val intake: Intake) : InstantCommand(intake::turnReverse, intake)
-//    class setIntakeSpeed(private val intake: Intake) : InstantCommand(intake::setIntakeSpeed,intake)
 
     class IntakeSequenceCommand(
         intake: Intake
