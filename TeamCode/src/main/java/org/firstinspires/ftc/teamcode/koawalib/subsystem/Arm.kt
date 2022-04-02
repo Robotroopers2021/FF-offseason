@@ -18,6 +18,7 @@ class Arm(config: MotorSubsystemConfig) : MotorSubsystem(config) {
         const val bottomPosition = 0.0
         const val sharedPosition = 0.0
         const val startPosition = 0.0
+        const val armIntakePos = 0.0
     }
 }
 

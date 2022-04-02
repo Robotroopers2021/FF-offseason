@@ -20,5 +20,6 @@ class Turret(config : MotorSubsystemConfig) : MotorSubsystem(config) {
         const val sharedAngleBlue = 0.0
         const val allianceAngleRed = 0.0
         const val sharedAngleRed = 0.0
+        const val sharedHomeAngle = 0.0
     }
 }
