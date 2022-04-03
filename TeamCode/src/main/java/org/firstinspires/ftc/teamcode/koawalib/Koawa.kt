@@ -31,14 +31,15 @@ class Koawa {
     private val slidesServo = KServo("Slides").startAt(Slides.zeroPosition)
     val loadingSensor = KDistanceSensor("dSensor")
     val intakeMotor = KMotor("Intake")
-    val turretLimitSwitch = KLimitSwitch("limitSwitch")
-    val turretMotor = KMotor("turret").brake
-    val armMotor = KMotor("Arm").float
+    val clockingServo = KServo("Clocking").startAt(0.50)
+//    val turretLimitSwitch = KLimitSwitch("limitSwitch")
+    val turretMotor = KMotor("Turret").reverse.float
+    val armMotor = KMotor("Arm").brake
 
     val LeftEncoder = Encoder(bl, 1892.3724, true).reversed.zero()
     val PerpEncoder = Encoder(br, 1892.3724, true).reversed.zero()
-    val armEncoder = Encoder(armMotor, 213.5/90.0, false).reversed.zero()
-    val turretEncoder = Encoder(turretMotor, 0.0, false).zero()
+    val armEncoder = Encoder(armMotor, 592.0/90.0, false).reversed.zero()
+    val turretEncoder = Encoder(turretMotor, 745.0/90.0, false).reversed.zero()
 
     val imu = KIMU("imu", AxesOrder.XYZ, AxesSigns.NPN)
     private val odo = TwoWheelOdometry(imu, LeftEncoder, PerpEncoder, 1.857, 1.0 )
@@ -52,20 +53,20 @@ class Koawa {
         armMotor,
         armEncoder,
         controlType = MotorControlType.POSITION_PID,
-        kP = 0.0,
-        kI = 0.0,
-        kD = 0.0,
-        positionEpsilon = 0.0,
+        kP = 0.18,
+        kI = 0.001,
+        kD = 0.001,
+        positionEpsilon = 0.6,
     ))
     val turret = Turret(
         MotorSubsystemConfig(
         turretMotor,
         turretEncoder,
             controlType = MotorControlType.POSITION_PID,
-            kP = 0.0,
+            kP = 0.1,
             kI = 0.0,
-            kD = 0.0,
-            kStatic = 0.0,
+            kD = 0.003,
+            kStatic = 0.03,
             positionEpsilon = 0.0,
             homePositionToDisable = 0.0
 

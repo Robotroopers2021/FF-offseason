@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.koawalib.subsystem.Turret
 
 class ResetAfterDepositCommand(turret : Turret, arm : Arm, slides : Slides, turretAngle : Double) : SequentialCommandGroup(
     SlidesCommands.SlidesHomeCommand(slides),
-    WaitCommand(0.1),
+    WaitCommand(0.3),
     InstantCommand({turret.setPIDTarget(turretAngle)})
         .alongWith(InstantCommand({arm.setPIDTarget(Arm.armIntakePos)}))
 ) {

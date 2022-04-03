@@ -1,12 +1,15 @@
 package org.firstinspires.ftc.teamcode.perseus
 
+import com.acmerobotics.dashboard.FtcDashboard
 import com.acmerobotics.dashboard.config.Config
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.DcMotor
 import com.qualcomm.robotcore.hardware.DcMotorSimple
 import com.qualcomm.robotcore.hardware.Servo
 import com.qualcomm.robotcore.util.ElapsedTime
+import org.firstinspires.ftc.teamcode.archived.teleop.Arm
 import org.firstinspires.ftc.teamcode.stateMachine.StateMachineBuilder
 import org.firstinspires.ftc.teamcode.util.GamepadUtil.dpad_up_pressed
 import org.firstinspires.ftc.teamcode.util.GamepadUtil.left_trigger_pressed
@@ -33,6 +36,8 @@ class PerseusOp : OpMode(){
     var drive = 0.0
     var strafe = 0.0
     var rotate = 0.0
+
+    private val currentPositionTurret get() = (turret.currentPosition - 114).toDouble()
 
     private var motionTimer = ElapsedTime()
 
@@ -70,10 +75,10 @@ class PerseusOp : OpMode(){
 
     fun turretControl() {
         if (gamepad1.y) {
-            turret.power = 0.5
+            turret.power = 0.1
         }
         if (gamepad1.a) {
-            turret.power = -0.5
+            turret.power = -0.1
         }
         if (!gamepad1.y && !gamepad1.a) {
             turret.power = 0.0
@@ -180,5 +185,6 @@ class PerseusOp : OpMode(){
         turretControl()
         duckSpinnerSequenceStart()
         slidesControl()
+        telemetry.addData("currentPositon", currentPositionTurret)
     }
 }

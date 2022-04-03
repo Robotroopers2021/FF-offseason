@@ -23,11 +23,12 @@ import org.firstinspires.ftc.teamcode.koawalib.subsystem.Turret
 class KoawaBlueOp : CommandOpMode() {
     private lateinit var koawa : Koawa
     override fun mInit() {
+        Logger.config = LoggerConfig(isLogging = true, isPrinting = false, isLoggingTelemetry = false, isDebugging = false, maxErrorCount = 1)
         koawa = Koawa()
 
         koawa.drive.setDefaultCommand(MecanumDriveCommand(
             koawa.drive,
-            driver.leftStick.yInverted,
+            driver.leftStick.yInverted.xInverted,
             driver.rightStick.xInverted,
             0.85,0.85,0.65,
             xScalar = 0.75, yScalar = 0.75
@@ -50,12 +51,21 @@ class KoawaBlueOp : CommandOpMode() {
             .andThen(DuckSpinnerCommand (0.0, koawa.duckSpinner ))
         )
 
-        driver.y.onPress(IntakeSequenceCommand(koawa.intake, koawa.turret, Turret.sharedAngleBlue, koawa.arm, koawa.slides, Arm.sharedPosition))
+//        driver.y.onPress(IntakeSequenceCommand(koawa.intake, koawa.turret, Turret.sharedAngleBlue, koawa.arm, koawa.slides, Arm.sharedPosition))
+//
+//        driver.x.onPress(SlidesCommands.SlidesSharedCommand(koawa.slides))
+//
+//        driver.b.onPress(ResetAfterDepositCommand(koawa.turret, koawa.arm, koawa.slides, Turret.sharedHomeAngle))
 
-        driver.x.onPress(SlidesCommands.SlidesSharedCommand(koawa.slides))
+        driver.y.onPress(InstantCommand({koawa.turret.setPIDTarget(Turret.allianceAngleBlue)}, koawa.turret))
 
-        driver.b.onPress(ResetAfterDepositCommand(koawa.turret, koawa.arm, koawa.slides, Turret.sharedHomeAngle))
+        driver.x.onPress(InstantCommand({koawa.turret.setPIDTarget(Turret.turretHomeAngle)}, koawa.turret))
+
+        driver.b.onPress(InstantCommand({koawa.arm.setPIDTarget(Arm.topPosition)}, koawa.arm))
+
+        driver.a.onPress(InstantCommand({koawa.arm.setPIDTarget(Arm.startPosition)}, koawa.arm))
     }
+
 
     override fun mStart() {
         koawa.turret.disabled = false
@@ -70,5 +80,6 @@ class KoawaBlueOp : CommandOpMode() {
         Logger.addTelemetryData("position", koawa.drive.position)
         Logger.addTelemetryData("turret angle", koawa.turretEncoder.position)
         Logger.addTelemetryData("arm angle", koawa.armEncoder.position)
+        Logger.addTelemetryData("dSensor", koawa.loadingSensor.invokeDouble())
     }
 }

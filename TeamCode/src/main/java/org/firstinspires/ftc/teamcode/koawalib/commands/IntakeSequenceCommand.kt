@@ -11,15 +11,15 @@ import org.firstinspires.ftc.teamcode.koawalib.subsystem.Turret
 
 class IntakeSequenceCommand (intake : Intake, turret : Turret, turretAngle: Double, arm : Arm, slides : Slides, armAngle : Double) : SequentialCommandGroup(
         SlidesCommands.SlidesIntakeCommand(slides),
-        WaitCommand(0.1),
+        WaitCommand(0.5),
         IntakeCommands.IntakeOn(intake)
                 .alongWith(InstantCommand(intake::startReading)),
         WaitUntilCommand(intake::hasMineral),
         IntakeCommands.IntakeOff(intake),
-        WaitCommand(0.1),
-        SlidesCommands.SlidesHomeCommand(slides),
-        WaitCommand(0.1),
-        InstantCommand({arm.setPIDTarget(armAngle)}, arm)
+        WaitCommand(0.5),
+        InstantCommand({arm.setPIDTarget(armAngle)}, arm),
+        WaitCommand(0.5),
+        SlidesCommands.SlidesHomeCommand(slides)
                 .alongWith(InstantCommand({turret.setPIDTarget(turretAngle)}, turret))
 ) {
         init {

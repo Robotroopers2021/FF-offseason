@@ -29,7 +29,7 @@ class Arm {
     companion object {
         @JvmStatic var kp = 0.015
         @JvmStatic var ki = 0.0
-        @JvmStatic var kd = 0.00075
+        @JvmStatic var kd = 0.0005
         @JvmStatic var targetAngle = 0.0
         @JvmStatic var kv = 0.0
         @JvmStatic var restAngle = -55.0

@@ -36,11 +36,11 @@ class TempArm {
     }
 
     fun MoveArmToTopPos() {
-        moveArmToDegree(90.0)
+        moveArmToDegree(50.0)
     }
 
-    private var degreesPerTick = 90.0 / 213.5
-    private var ticksPerDegree = 213.5/90.0
+    private var degreesPerTick = 90.0 / -592.0
+    private var ticksPerDegree = -592.0/90.0
     private var targetTicks = 0.0
     var output = 0.0
     private var pidOutput = 0.0
