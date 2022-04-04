@@ -6,9 +6,9 @@ import com.asiankoala.koawalib.subsystem.intake.IntakeConfig
 import com.asiankoala.koawalib.subsystem.intake.KDistanceSensorIntake
 import com.asiankoala.koawalib.subsystem.intake.KIntake
 
-class Intake(motor: KMotor, private val sensor: KDistanceSensor) : KIntake(motor, IntakeConfig(0.75)) {
+class Intake(motor: KMotor, private val sensor: KDistanceSensor) : KIntake(motor, IntakeConfig(0.60)) {
     companion object IntakeConstants {
-        const val SENSOR_THRESHOLD = 20.0
+        const val SENSOR_THRESHOLD = 50.0
     }
     private var isReadingSensor = false
     private var lastRead = Double.POSITIVE_INFINITY

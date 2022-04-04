@@ -8,10 +8,10 @@ import org.firstinspires.ftc.teamcode.koawalib.subsystem.Slides.SlideConstants.a
 class Slides (private val servo: KServo) : DeviceSubsystem() {
 
     companion object SlideConstants {
-        const val alliancePosition = 0.0
-        const val sharedPosition = 0.5
+        const val alliancePosition = 0.3
+        const val sharedPosition = 0.45
         const val homePosition = 0.9
-        const val intakePosition = 0.1
+        const val intakePosition = 0.3
         const val zeroPosition = 0.9
     }
 
@@ -35,3 +35,4 @@ class Slides (private val servo: KServo) : DeviceSubsystem() {
         servo.position = zeroPosition
     }
 }
+

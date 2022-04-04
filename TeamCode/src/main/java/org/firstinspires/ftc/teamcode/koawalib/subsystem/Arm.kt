@@ -13,12 +13,12 @@ import org.firstinspires.ftc.teamcode.util.Encoder
 
 class Arm(config: MotorSubsystemConfig) : MotorSubsystem(config) {
     companion object ArmConstants {
-        const val topPosition = 80.0
-        const val midPosition = 0.0
-        const val bottomPosition = 0.0
-        const val sharedPosition = 0.0
-        const val startPosition = 0.0
-        const val armIntakePos = 20.0
+        const val topPosition = 83.0
+        const val midPosition = 60.0
+        const val bottomPosition = 25.0
+        const val sharedPosition = 25.0
+        const val startPosition = 30.0
+        const val armIntakePos = 19.5
     }
 
 }

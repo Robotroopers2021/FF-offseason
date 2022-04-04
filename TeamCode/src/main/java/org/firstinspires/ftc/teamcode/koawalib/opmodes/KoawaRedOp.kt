@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.koawalib.opmodes
 
 import com.asiankoala.koawalib.command.CommandOpMode
 import com.asiankoala.koawalib.command.commands.InfiniteCommand
-import com.asiankoala.koawalib.subsystem.drive.MecanumDriveCommand
 import com.asiankoala.koawalib.util.Logger
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.koawalib.commands.IntakeCommands
@@ -14,7 +13,7 @@ class KoawaRedOp : CommandOpMode() {
     private lateinit var robot: Koawa
     override fun mInit() {
         robot = Koawa()
-        bindDrive()
+//        bindDrive()
         bindIntake()
         bindSpinnerRed()
 //        bindDeposit()
@@ -24,9 +23,9 @@ class KoawaRedOp : CommandOpMode() {
         Logger.addTelemetryData("dSensor", robot.loadingSensor.invokeDouble())
     }
 
-    fun bindDrive() {
-        robot.drive.setDefaultCommand(MecanumDriveCommand(robot.drive, driver.leftStick.yInverted.xInverted, driver.rightStick.xInverted))
-    }
+//    fun bindDrive() {
+//        robot.drive.setDefaultCommand(MecanumDriveCommand(robot.drive, driver.leftStick.yInverted.xInverted, driver.rightStick.xInverted))
+//    }
 
     fun bindIntake() {
 //        driver.leftTrigger.whenPressed(IntakeCommands.IntakeSequenceCommand(robot.intake))

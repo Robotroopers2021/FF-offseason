@@ -14,8 +14,10 @@ import com.asiankoala.koawalib.subsystem.drive.KMecanumOdoDrive
 import com.asiankoala.koawalib.subsystem.intake.IntakeConfig
 import com.asiankoala.koawalib.subsystem.odometry.Encoder
 import com.asiankoala.koawalib.subsystem.odometry.TwoWheelOdometry
+import com.asiankoala.koawalib.subsystem.old.FeedforwardConstants
 import com.asiankoala.koawalib.subsystem.old.MotorControlType
 import com.asiankoala.koawalib.subsystem.old.MotorSubsystemConfig
+import com.asiankoala.koawalib.subsystem.old.PIDConstants
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder
 import org.firstinspires.ftc.teamcode.koawalib.subsystem.*
 import kotlin.math.max
@@ -30,8 +32,8 @@ class Koawa {
     private val duckSpinnerMotor = KMotor("Duck").brake
     private val slidesServo = KServo("Slides").startAt(Slides.zeroPosition)
     val loadingSensor = KDistanceSensor("dSensor")
-    val intakeMotor = KMotor("Intake")
-    val clockingServo = KServo("Clocking").startAt(0.50)
+    val intakeMotor = KMotor("Intake").reverse
+    val clockingServo = KServo("Clocking").startAt(0.5)
 //    val turretLimitSwitch = KLimitSwitch("limitSwitch")
     val turretMotor = KMotor("Turret").reverse.float
     val armMotor = KMotor("Arm").brake
@@ -49,24 +51,34 @@ class Koawa {
     val duckSpinner = DuckSpinner(duckSpinnerMotor)
     val intake = Intake(intakeMotor, loadingSensor)
     val slides = Slides(slidesServo)
+    val clocking = Clocking(clockingServo)
     val arm = Arm(MotorSubsystemConfig(
         armMotor,
         armEncoder,
         controlType = MotorControlType.POSITION_PID,
-        kP = 0.18,
-        kI = 0.001,
-        kD = 0.001,
-        positionEpsilon = 0.6,
+        PIDConstants(
+            kP = 0.1,   //0.18
+            kI= 0.006,   //0.001
+            kD = 0.00055 //0.0004
+        ),
+       FeedforwardConstants(
+           kCos = 0.275
+       ),
+        positionEpsilon = 0.0, //0.6
     ))
     val turret = Turret(
         MotorSubsystemConfig(
         turretMotor,
         turretEncoder,
             controlType = MotorControlType.POSITION_PID,
-            kP = 0.1,
-            kI = 0.0,
-            kD = 0.003,
-            kStatic = 0.03,
+            PIDConstants(
+                kP = 0.1,
+                kI= 0.0,
+                kD = 0.003
+            ),
+            FeedforwardConstants(
+                kStatic = 0.003
+            ),
             positionEpsilon = 0.0,
             homePositionToDisable = 0.0
 
