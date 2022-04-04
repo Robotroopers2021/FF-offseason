@@ -86,7 +86,7 @@ class KoawaBlueOp : CommandOpMode() {
     }
 
     override fun mLoop() {
-        koawa.imu.periodic()
+        koawa.imu.update()
         Logger.addTelemetryData("power", koawa.drive.powers)
         Logger.addTelemetryData("position", koawa.drive.position)
         Logger.addTelemetryData("turret angle", koawa.turretEncoder.position)
