@@ -48,9 +48,10 @@ class Koawa {
     val turretEncoder = Encoder(turretMotor, 745.0/90.0, false).reversed.zero()
 
     val imu = KIMU("imu", AxesOrder.XYZ, AxesSigns.NPN)
+    val driveOdo = TwoWheelOdometry(imu, LeftEncoder, PerpEncoder, 1.857, 1.0 )
     val odo = TwoWheelOdometryRR(imu, LeftEncoder, PerpEncoder, 1.857, 1.0 )
 
-//    val drive = KMecanumOdoDrive(fl, bl, fr, br, odo, true)
+    val drive = KMecanumOdoDrive(fl, bl, fr, br, driveOdo, true)
 
     val driveConstants = DriveConstants(
         TICKS_PER_REV = 8192.0,
