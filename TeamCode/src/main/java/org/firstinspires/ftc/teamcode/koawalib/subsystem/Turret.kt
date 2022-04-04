@@ -9,7 +9,7 @@ import com.asiankoala.koawalib.control.feedforward.MotorFeedforward
 import com.asiankoala.koawalib.hardware.motor.KMotorEx
 import com.asiankoala.koawalib.hardware.sensor.KLimitSwitch
 import com.asiankoala.koawalib.subsystem.DeviceSubsystem
-import com.asiankoala.koawalib.subsystem.odometry.Encoder
+import com.asiankoala.koawalib.subsystem.odometry.KEncoder
 import com.asiankoala.koawalib.subsystem.old.MotorSubsystem
 import com.asiankoala.koawalib.subsystem.old.MotorSubsystemConfig
 
