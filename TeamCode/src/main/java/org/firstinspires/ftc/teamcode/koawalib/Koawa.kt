@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.koawalib
 
 import com.acmerobotics.dashboard.config.Config
+import com.acmerobotics.roadrunner.control.PIDCoefficients
 import com.asiankoala.koawalib.control.MotionProfileController
 import com.asiankoala.koawalib.control.PIDExController
 import com.asiankoala.koawalib.hardware.motor.KMotor
@@ -10,6 +11,9 @@ import com.asiankoala.koawalib.hardware.sensor.KDistanceSensor
 import com.asiankoala.koawalib.hardware.sensor.KIMU
 import com.asiankoala.koawalib.hardware.sensor.KLimitSwitch
 import com.asiankoala.koawalib.hardware.servo.KServo
+import com.asiankoala.koawalib.roadrunner.drive.DriveConstants
+import com.asiankoala.koawalib.roadrunner.drive.KMecanumDriveRR
+import com.asiankoala.koawalib.roadrunner.drive.TwoWheelOdometryRR
 import com.asiankoala.koawalib.subsystem.drive.KMecanumOdoDrive
 import com.asiankoala.koawalib.subsystem.intake.IntakeConfig
 import com.asiankoala.koawalib.subsystem.odometry.Encoder
@@ -25,10 +29,10 @@ import kotlin.math.min
 
 
 class Koawa {
-    private val fl = KMotor("FL").reverse.brake
-    private val bl = KMotor("BL").reverse.brake
-    private val fr = KMotor("FR").brake
-    private val br = KMotor("BR").brake
+    private val fl = KMotor("FL").brake
+    private val bl = KMotor("BL").brake
+    private val br = KMotor("BR").reverse.brake
+    private val fr = KMotor("FR").reverse.brake
     private val duckSpinnerMotor = KMotor("Duck").brake
     private val slidesServo = KServo("Slides").startAt(Slides.zeroPosition)
     val loadingSensor = KDistanceSensor("dSensor")
@@ -44,9 +48,17 @@ class Koawa {
     val turretEncoder = Encoder(turretMotor, 745.0/90.0, false).reversed.zero()
 
     val imu = KIMU("imu", AxesOrder.XYZ, AxesSigns.NPN)
-    private val odo = TwoWheelOdometry(imu, LeftEncoder, PerpEncoder, 1.857, 1.0 )
+    val odo = TwoWheelOdometryRR(imu, LeftEncoder, PerpEncoder, 1.857, 1.0 )
 
-    val drive = KMecanumOdoDrive(fl, bl, fr, br, odo, true)
+//    val drive = KMecanumOdoDrive(fl, bl, fr, br, odo, true)
+
+    val driveConstants = DriveConstants(
+        TICKS_PER_REV = 8192.0,
+        WHEEL_RADIUS = 1.37795276,
+        TRACK_WIDTH = 1.857
+    )
+
+    val rrDrive = KMecanumDriveRR(driveConstants, fr, bl, fr, br, odo, PIDCoefficients(0.0, 0.0, 0.0), PIDCoefficients(0.0, 0.0, 0.0))
 
     val duckSpinner = DuckSpinner(duckSpinnerMotor)
     val intake = Intake(intakeMotor, loadingSensor)
@@ -64,7 +76,7 @@ class Koawa {
        FeedforwardConstants(
            kCos = 0.275
        ),
-        positionEpsilon = 0.0, //0.6
+        positionEpsilon = 2.0, //0.6
     ))
     val turret = Turret(
         MotorSubsystemConfig(
@@ -79,9 +91,8 @@ class Koawa {
             FeedforwardConstants(
                 kStatic = 0.003
             ),
-            positionEpsilon = 0.0,
-            homePositionToDisable = 0.0
-
+            positionEpsilon = 2.0,
+            homePositionToDisable = 2.0
     )
     )
 }

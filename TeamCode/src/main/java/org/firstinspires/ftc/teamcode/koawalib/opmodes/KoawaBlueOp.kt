@@ -26,7 +26,7 @@ class KoawaBlueOp : CommandOpMode() {
         koawa.drive.setDefaultCommand(
             MecanumDriveCommand(
             koawa.drive,
-            driver.leftStick.yInverted.xInverted,
+            driver.leftStick,
             driver.rightStick.xInverted,
             1.0,1.0,0.65,
             xScalar = 0.75, yScalar = 0.75
@@ -75,10 +75,14 @@ class KoawaBlueOp : CommandOpMode() {
 
 
     override fun mStart() {
-        koawa.turret.disabled = false
-        koawa.arm.disabled = false
-        koawa.turret.setPIDTarget(0.0)
-        koawa.arm.setPIDTarget(30.0)
+//        koawa.turret.disabled = false
+//        koawa.arm.disabled = false
+        koawa.slides.unregister()
+        koawa.turret.unregister()
+        koawa.arm.unregister()
+
+//        koawa.turret.setPIDTarget(0.0)
+//        koawa.arm.setPIDTarget(30.0)
     }
 
     override fun mLoop() {
