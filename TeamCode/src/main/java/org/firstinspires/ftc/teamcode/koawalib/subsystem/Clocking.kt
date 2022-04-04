@@ -9,7 +9,7 @@ class Clocking (private val servo : KServo) :DeviceSubsystem() {
     companion object ClockingConstants{
         const val zeroPosition = 0.0
         const val depositPosition = 0.35
-        const val intakePosition = 0.50
+        const val intakePosition = 0.45
     }
 
     fun zero() {

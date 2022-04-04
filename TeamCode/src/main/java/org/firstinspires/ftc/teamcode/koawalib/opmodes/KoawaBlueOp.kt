@@ -75,14 +75,14 @@ class KoawaBlueOp : CommandOpMode() {
 
 
     override fun mStart() {
-//        koawa.turret.disabled = false
-//        koawa.arm.disabled = false
-        koawa.slides.unregister()
-        koawa.turret.unregister()
-        koawa.arm.unregister()
+        koawa.turret.disabled = false
+        koawa.arm.disabled = false
+//        koawa.slides.unregister()
+//        koawa.turret.unregister()
+//        koawa.arm.unregister()
 
-//        koawa.turret.setPIDTarget(0.0)
-//        koawa.arm.setPIDTarget(30.0)
+        koawa.turret.setPIDTarget(0.0)
+        koawa.arm.setPIDTarget(30.0)
     }
 
     override fun mLoop() {
