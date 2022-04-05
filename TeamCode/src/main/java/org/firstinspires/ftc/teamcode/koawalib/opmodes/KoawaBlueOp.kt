@@ -27,7 +27,7 @@ class KoawaBlueOp : CommandOpMode() {
             MecanumDriveCommand(
             koawa.drive,
             driver.leftStick,
-            driver.rightStick.xInverted,
+            driver.rightStick,
             1.0,1.0,0.65,
             xScalar = 0.75, yScalar = 0.75
         )
@@ -56,6 +56,10 @@ class KoawaBlueOp : CommandOpMode() {
 
         driver.b.onPress(ResetAfterDepositCommand(koawa.turret, koawa.arm, koawa.slides, Turret.sharedHomeAngle, koawa.intake, koawa.clocking))
 
+        driver.dpadLeft.onPress(InstantCommand({koawa.intake.setIntakeSpeed(1.0)}, koawa.intake))
+
+        driver.dpadRight.onPress(InstantCommand({koawa.intake.setIntakeSpeed(-0.5)}, koawa.intake))
+
         gunner.leftBumper.onPress(TurretSequenceCommand(koawa.turret, Turret.allianceAngleBlue, koawa.arm, Arm.topPosition, koawa.clocking))
 
         gunner.b.onPress(TurretSequenceCommand(koawa.turret, Turret.allianceAngleBlue, koawa.arm, Arm.midPosition, koawa.clocking))
@@ -64,6 +68,10 @@ class KoawaBlueOp : CommandOpMode() {
 
         gunner.rightBumper.onPress(TurretSequenceCommand(koawa.turret, Turret.sharedAngleBlue, koawa.arm, Arm.sharedPosition, koawa.clocking))
 
+        gunner.a.onPress(InstantCommand({koawa.arm.setPIDTarget(80.0)}, koawa.arm))
+
+        gunner.y.onPress(InstantCommand({koawa.arm.setPIDTarget(30.0)}, koawa.arm))
+
 //        driver.y.onPress(InstantCommand({koawa.turret.setPIDTarget(Turret.allianceAngleBlue)}, koawa.turret))
 //
 //        driver.x.onPress(InstantCommand({koawa.turret.setPIDTarget(Turret.turretHomeAngle)}, koawa.turret))
@@ -71,18 +79,15 @@ class KoawaBlueOp : CommandOpMode() {
 //        driver.b.onPress(InstantCommand({koawa.arm.setPIDTarget(Arm.topPosition)}, koawa.arm))
 //
 //        driver.a.onPress(InstantCommand({koawa.arm.setPIDTarget(Arm.armIntakePos)}, koawa.arm))
+
+        koawa.turret.setPIDTarget(0.0)
+//        koawa.arm.setPIDTarget(30.0)
     }
 
 
     override fun mStart() {
-        koawa.turret.disabled = false
         koawa.arm.disabled = false
-//        koawa.slides.unregister()
-//        koawa.turret.unregister()
-//        koawa.arm.unregister()
-
-        koawa.turret.setPIDTarget(0.0)
-        koawa.arm.setPIDTarget(30.0)
+        koawa.turret.disabled = false
     }
 
     override fun mLoop() {

@@ -13,11 +13,11 @@ import com.asiankoala.koawalib.hardware.sensor.KLimitSwitch
 import com.asiankoala.koawalib.hardware.servo.KServo
 import com.asiankoala.koawalib.roadrunner.drive.DriveConstants
 import com.asiankoala.koawalib.roadrunner.drive.KMecanumDriveRR
-import com.asiankoala.koawalib.roadrunner.drive.TwoWheelOdometryRR
+import com.asiankoala.koawalib.roadrunner.drive.KTwoWheelOdometryRR
 import com.asiankoala.koawalib.subsystem.drive.KMecanumOdoDrive
 import com.asiankoala.koawalib.subsystem.intake.IntakeConfig
 import com.asiankoala.koawalib.subsystem.odometry.KEncoder
-import com.asiankoala.koawalib.subsystem.odometry.KTwoWheelOdo
+import com.asiankoala.koawalib.subsystem.odometry.KTwoWheelOdometry
 import com.asiankoala.koawalib.subsystem.old.FeedforwardConstants
 import com.asiankoala.koawalib.subsystem.old.MotorControlType
 import com.asiankoala.koawalib.subsystem.old.MotorSubsystemConfig
@@ -31,8 +31,8 @@ import kotlin.math.min
 class Koawa {
     private val fl = KMotor("FL").brake
     private val bl = KMotor("BL").brake
-    private val br = KMotor("BR").reverse.brake
-    private val fr = KMotor("FR").reverse.brake
+    private val br = KMotor("BR").brake.reverse
+    private val fr = KMotor("FR").brake.reverse
     private val duckSpinnerMotor = KMotor("Duck").brake
     private val slidesServo = KServo("Slides").startAt(Slides.zeroPosition)
     val loadingSensor = KDistanceSensor("dSensor")
@@ -44,12 +44,12 @@ class Koawa {
 
     val LeftEncoder = KEncoder(bl, 1892.3724, true).reversed.zero()
     val PerpEncoder = KEncoder(br, 1892.3724, true).reversed.zero()
-    val armEncoder = KEncoder(armMotor, 592.0/90.0, false).reversed.zero()
+    val armEncoder = KEncoder(armMotor, 672.0/90.0, false).zero()
     val turretEncoder = KEncoder(turretMotor, 745.0/90.0, false).reversed.zero()
 
     val imu = KIMU("imu", AxesOrder.XYZ, AxesSigns.NPN)
-    val driveOdo = KTwoWheelOdo(imu, LeftEncoder, PerpEncoder, 1.857, 1.0 )
-    val odo = TwoWheelOdometryRR(imu, LeftEncoder, PerpEncoder, 1.857, 1.0 )
+    val driveOdo = KTwoWheelOdometry(imu, LeftEncoder, PerpEncoder, 1.857, 1.0 )
+    val odo = KTwoWheelOdometryRR(imu, LeftEncoder, PerpEncoder, 1.857, 1.0 )
 
     val drive = KMecanumOdoDrive(fl, bl, fr, br, driveOdo, true)
 
@@ -68,16 +68,20 @@ class Koawa {
     val arm = Arm(MotorSubsystemConfig(
         armMotor,
         armEncoder,
-        controlType = MotorControlType.POSITION_PID,
+        controlType = MotorControlType.MOTION_PROFILE,
         PIDConstants(
-            kP = 0.1,   //0.18
-            kI= 0.006,   //0.001
-            kD = 0.00055 //0.0004
+            kP = 0.05,   //0.1
+            kD = 0.00085 //0.00055
         ),
        FeedforwardConstants(
-           kCos = 0.275
+           kCos = 0.45,
+           kStatic = 0.03
        ),
+        maxVelocity = 70.0,
+        maxAcceleration = 50.0,
+
         positionEpsilon = 2.0, //0.6
+
     ))
     val turret = Turret(
         MotorSubsystemConfig(
@@ -93,7 +97,9 @@ class Koawa {
                 kStatic = 0.003
             ),
             positionEpsilon = 2.0,
-            homePositionToDisable = 2.0
+            homePositionToDisable = 2.0,
+            lowerBound = -180.0,
+            upperBound = 180.0
     )
     )
 }

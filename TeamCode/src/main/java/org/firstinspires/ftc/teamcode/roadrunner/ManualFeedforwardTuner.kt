@@ -17,7 +17,7 @@ import com.asiankoala.koawalib.hardware.sensor.AxesSigns
 import com.asiankoala.koawalib.hardware.sensor.KIMU
 import com.asiankoala.koawalib.roadrunner.drive.DriveConstants
 import com.asiankoala.koawalib.roadrunner.drive.KMecanumDriveRR
-import com.asiankoala.koawalib.roadrunner.drive.TwoWheelOdometryRR
+import com.asiankoala.koawalib.roadrunner.drive.KTwoWheelOdometryRR
 import com.asiankoala.koawalib.subsystem.odometry.KEncoder
 import com.asiankoala.koawalib.util.Logger
 import com.asiankoala.koawalib.util.LoggerConfig
@@ -25,6 +25,7 @@ import com.qualcomm.hardware.lynx.LynxModule
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous
 import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.util.RobotLog
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder
 import org.firstinspires.ftc.teamcode.koawalib.Koawa
@@ -47,8 +48,7 @@ import java.util.*
  * Pressing B/O (Xbox/PS4) will cede control back to the tuning process.
  */
 // @Config
-@Disabled
-@Autonomous(group = "drive")
+@TeleOp(group = "drive")
 class ManualFeedforwardTuner : LinearOpMode() {
     private val dashboard: FtcDashboard = FtcDashboard.getInstance()
     private lateinit var koawa : Koawa
@@ -81,7 +81,7 @@ class ManualFeedforwardTuner : LinearOpMode() {
         val imu = KIMU("imu", AxesOrder.XYZ, AxesSigns.NPN)
         val LeftEncoder = KEncoder(bl, 1892.3724, true).reversed.zero()
         val PerpEncoder = KEncoder(br, 1892.3724, true).reversed.zero()
-        val odo = TwoWheelOdometryRR(imu, LeftEncoder, PerpEncoder, 1.857, 1.0 )
+        val odo = KTwoWheelOdometryRR(imu, LeftEncoder, PerpEncoder, 1.857, 1.0 )
 
         val drive = KMecanumDriveRR(driveConstants, fr, bl, fr, br, odo, PIDCoefficients(0.0, 0.0, 0.0), PIDCoefficients(0.0, 0.0, 0.0))
 
