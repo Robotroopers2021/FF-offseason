@@ -6,9 +6,9 @@ import com.asiankoala.koawalib.subsystem.intake.IntakeConfig
 import com.asiankoala.koawalib.subsystem.intake.KDistanceSensorIntake
 import com.asiankoala.koawalib.subsystem.intake.KIntake
 
-class Intake(motor: KMotor, private val sensor: KDistanceSensor) : KIntake(motor, IntakeConfig(0.60)) {
+class Intake(motor: KMotor, private val sensor: KDistanceSensor) : KIntake(motor, IntakeConfig(0.75)) {
     companion object IntakeConstants {
-        const val SENSOR_THRESHOLD = 50.0
+        const val SENSOR_THRESHOLD = 57.0
     }
     private var isReadingSensor = false
     private var lastRead = Double.POSITIVE_INFINITY
@@ -21,6 +21,14 @@ class Intake(motor: KMotor, private val sensor: KDistanceSensor) : KIntake(motor
     fun stopReading() {
         isReadingSensor = false
         lastRead = Double.POSITIVE_INFINITY
+    }
+
+    fun slowIntake() {
+        setIntakeSpeed(1.0)
+    }
+
+    fun outtake() {
+        setIntakeSpeed(-0.40)
     }
 
     val hasMineral get() = sensor.lastRead < SENSOR_THRESHOLD

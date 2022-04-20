@@ -10,6 +10,7 @@ class Clocking (private val servo : KServo) :DeviceSubsystem() {
         const val zeroPosition = 0.0
         const val depositPosition = 0.35
         const val intakePosition = 0.45
+        const val liftPosition = 0.55
     }
 
     fun zero() {
@@ -22,6 +23,10 @@ class Clocking (private val servo : KServo) :DeviceSubsystem() {
 
     fun intakeClocking() {
         servo.position = intakePosition
+    }
+
+    fun lift() {
+        servo.position = liftPosition
     }
 }
 

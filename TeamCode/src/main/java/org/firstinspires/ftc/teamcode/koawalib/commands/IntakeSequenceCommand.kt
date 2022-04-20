@@ -14,11 +14,11 @@ class IntakeSequenceCommand (intake : Intake, turret : Turret, turretAngle: Doub
                 .alongWith(IntakeCommands.IntakeOn(intake))
                 .alongWith(InstantCommand(intake::startReading)),
         WaitUntilCommand(intake::hasMineral),
-        IntakeCommands.IntakeOff(intake),
-        WaitCommand(0.25),
-        InstantCommand({arm.setPIDTarget(armAngle)}, arm),
-        WaitCommand(0.3),
-        SlidesCommands.SlidesHomeCommand(slides)
+        IntakeCommands.IntakeSlow(intake),
+        WaitCommand(0.5),
+        InstantCommand({arm.setPIDTarget(armAngle)}, arm)
+                .alongWith(SlidesCommands.SlidesHomeCommand(slides))
+                .alongWith(ClockingCommands.ClockingLift(clocking))
 //                .alongWith(InstantCommand({turret.setPIDTarget(turretAngle)}, turret))
 ) {
         init {
@@ -26,10 +26,4 @@ class IntakeSequenceCommand (intake : Intake, turret : Turret, turretAngle: Doub
         }
 }
 
-class TurretSequenceCommand(turret : Turret, turretAngle: Double, arm: Arm, armAngle: Double, clocking: Clocking) : SequentialCommandGroup(
-        InstantCommand({arm.setPIDTarget(Arm.topPosition)}),
-        WaitCommand(0.5),
-        InstantCommand({turret.setPIDTarget(turretAngle)}),
-        WaitCommand(0.5),
-        InstantCommand({arm.setPIDTarget(armAngle)})
-)
+

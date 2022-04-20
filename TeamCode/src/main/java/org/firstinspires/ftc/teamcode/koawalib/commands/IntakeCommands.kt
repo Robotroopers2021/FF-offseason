@@ -9,4 +9,6 @@ object IntakeCommands {
     class IntakeOn(private val intake: Intake) : InstantCommand(intake::turnOn, intake)
     class IntakeOff(private val intake: Intake) : InstantCommand(intake::turnOff, intake)
     class IntakeReverse(private val intake: Intake) : InstantCommand(intake::turnReverse, intake)
+    class IntakeSlow(private val intake: Intake) : InstantCommand(intake::slowIntake)
+    class Outtake(private val intake: Intake) : InstantCommand(intake::outtake)
 }

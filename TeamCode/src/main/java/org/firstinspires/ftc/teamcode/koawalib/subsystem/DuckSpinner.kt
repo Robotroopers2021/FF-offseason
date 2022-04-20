@@ -6,7 +6,7 @@ import com.asiankoala.koawalib.subsystem.DeviceSubsystem
 
 class DuckSpinner (private val motor: KMotor ) : DeviceSubsystem(){
      fun setPower(power : Double) {
-         motor.setSpeed(power)
+         motor.power = 1.0
      }
 }
 

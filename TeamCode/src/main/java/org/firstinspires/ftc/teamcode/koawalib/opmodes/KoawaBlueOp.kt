@@ -1,14 +1,13 @@
 package org.firstinspires.ftc.teamcode.koawalib.opmodes
 
 import com.asiankoala.koawalib.command.CommandOpMode
-import com.asiankoala.koawalib.command.commands.GoToPointCommand
 import com.asiankoala.koawalib.command.commands.InfiniteCommand
 import com.asiankoala.koawalib.command.commands.InstantCommand
 import com.asiankoala.koawalib.command.commands.MecanumDriveCommand
+import com.asiankoala.koawalib.logger.Logger
+import com.asiankoala.koawalib.logger.LoggerConfig
 import com.asiankoala.koawalib.math.Pose
 import com.asiankoala.koawalib.math.radians
-import com.asiankoala.koawalib.util.Logger
-import com.asiankoala.koawalib.util.LoggerConfig
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.koawalib.Koawa
 import org.firstinspires.ftc.teamcode.koawalib.commands.*
@@ -37,7 +36,7 @@ class KoawaBlueOp : CommandOpMode() {
 
         driver.rightBumper.onPress(SlidesCommands.SlidesAllianceCommand(koawa.slides))
 
-        driver.rightTrigger.onPress(ClockingCommands.ClockingDeposit(koawa.clocking).alongWith(IntakeCommands.IntakeReverse(koawa.intake)))
+        driver.rightTrigger.onPress(ClockingCommands.ClockingDeposit(koawa.clocking).alongWith(IntakeCommands.Outtake(koawa.intake)))
 
         driver.leftBumper.onPress(ResetAfterDepositCommand(koawa.turret, koawa.arm, koawa.slides, Turret.turretHomeAngle, koawa.intake, koawa.clocking))
 
@@ -68,20 +67,20 @@ class KoawaBlueOp : CommandOpMode() {
 
         gunner.rightBumper.onPress(TurretSequenceCommand(koawa.turret, Turret.sharedAngleBlue, koawa.arm, Arm.sharedPosition, koawa.clocking))
 
-        gunner.a.onPress(InstantCommand({koawa.arm.setPIDTarget(80.0)}, koawa.arm))
+        gunner.a.onPress(ClockingCommands.ClockingDeposit(koawa.clocking))
 
-        gunner.y.onPress(InstantCommand({koawa.arm.setPIDTarget(30.0)}, koawa.arm))
+        gunner.y.onPress(ClockingCommands.ClockingLift(koawa.clocking))
 
-//        driver.y.onPress(InstantCommand({koawa.turret.setPIDTarget(Turret.allianceAngleBlue)}, koawa.turret))
-//
-//        driver.x.onPress(InstantCommand({koawa.turret.setPIDTarget(Turret.turretHomeAngle)}, koawa.turret))
-//
-//        driver.b.onPress(InstantCommand({koawa.arm.setPIDTarget(Arm.topPosition)}, koawa.arm))
-//
-//        driver.a.onPress(InstantCommand({koawa.arm.setPIDTarget(Arm.armIntakePos)}, koawa.arm))
+        driver.y.onPress(InstantCommand({koawa.turret.setPIDTarget(Turret.allianceAngleBlue)}, koawa.turret))
+
+        driver.x.onPress(InstantCommand({koawa.turret.setPIDTarget(Turret .turretHomeAngle)}, koawa.turret))
+
+        driver.b.onPress(InstantCommand({koawa.arm.setPIDTarget(Arm.topPosition)}, koawa.arm))
+
+        driver.a.onPress(InstantCommand({koawa.arm.setPIDTarget(Arm.armIntakePos)}, koawa.arm))
 
         koawa.turret.setPIDTarget(0.0)
-//        koawa.arm.setPIDTarget(30.0)
+        koawa.arm.setPIDTarget(0.0)
     }
 
 
@@ -91,11 +90,11 @@ class KoawaBlueOp : CommandOpMode() {
     }
 
     override fun mLoop() {
-        koawa.imu.update()
+        Logger.addTelemetryData("arm angle", koawa.armEncoder.position)
         Logger.addTelemetryData("power", koawa.drive.powers)
-        Logger.addTelemetryData("position", koawa.drive.position)
+//        Logger.addTelemetryData("position", koawa.drive.pose)
         Logger.addTelemetryData("turret angle", koawa.turretEncoder.position)
         Logger.addTelemetryData("arm angle", koawa.armEncoder.position)
-        Logger.addTelemetryData("dSensor", koawa.loadingSensor.invokeDouble())
+//        Logger.addTelemetryData("dSensor", koawa.loadingSensor.invokeDouble())
     }
 }
