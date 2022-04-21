@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.koawalib.subsystem.Turret
 class KoawaBlueOp : CommandOpMode() {
     private lateinit var koawa : Koawa
     override fun mInit() {
-        Logger.config = LoggerConfig(isLogging = true, isPrinting = false, isLoggingTelemetry = false, isDebugging = false, maxErrorCount = 1)
+        Logger.config = LoggerConfig(isLogging = true, isPrinting = false, isLoggingTelemetry = true, isDebugging = false, maxErrorCount = 1)
         koawa = Koawa()
 
         koawa.drive.setDefaultCommand(
@@ -32,11 +32,11 @@ class KoawaBlueOp : CommandOpMode() {
         )
         )
 
-        driver.leftTrigger.onPress(IntakeSequenceCommand(koawa.intake, koawa.turret, Turret.allianceAngleBlue, koawa.arm, koawa.slides, Arm.topPosition, koawa.clocking))
+//        driver.leftTrigger.onPress(IntakeSequenceCommand(koawa.intake, koawa.turret, Turret.allianceAngleBlue, koawa.arm, koawa.slides, Arm.topPosition, koawa.clocking))
 
         driver.rightBumper.onPress(SlidesCommands.SlidesAllianceCommand(koawa.slides))
 
-        driver.rightTrigger.onPress(ClockingCommands.ClockingDeposit(koawa.clocking).alongWith(IntakeCommands.Outtake(koawa.intake)))
+//        driver.rightTrigger.onPress(ClockingCommands.ClockingDeposit(koawa.clocking).alongWith(IntakeCommands.Outtake(koawa.intake)))
 
         driver.leftBumper.onPress(ResetAfterDepositCommand(koawa.turret, koawa.arm, koawa.slides, Turret.turretHomeAngle, koawa.intake, koawa.clocking))
 
@@ -47,6 +47,7 @@ class KoawaBlueOp : CommandOpMode() {
             .andThen(DuckSpinnerCommand (0.85, koawa.duckSpinner ))
             .pauseFor(0.4)
             .andThen(DuckSpinnerCommand (0.0, koawa.duckSpinner ))
+            .cancelIf { driver.dpadUp.isJustReleased }
         )
 
         driver.y.onPress(IntakeSequenceCommand(koawa.intake, koawa.turret, Turret.sharedAngleBlue, koawa.arm, koawa.slides, Arm.sharedPosition, koawa.clocking))
@@ -71,30 +72,27 @@ class KoawaBlueOp : CommandOpMode() {
 
         gunner.y.onPress(ClockingCommands.ClockingLift(koawa.clocking))
 
-        driver.y.onPress(InstantCommand({koawa.turret.setPIDTarget(Turret.allianceAngleBlue)}, koawa.turret))
+        driver.y.onPress(InstantCommand({koawa.turret.motor.followMotionProfile(Turret.allianceAngleBlue)}, koawa.turret))
 
-        driver.x.onPress(InstantCommand({koawa.turret.setPIDTarget(Turret .turretHomeAngle)}, koawa.turret))
+        driver.x.onPress(InstantCommand({koawa.turret.motor.followMotionProfile(Turret .turretHomeAngle)}, koawa.turret))
 
-        driver.b.onPress(InstantCommand({koawa.arm.setPIDTarget(Arm.topPosition)}, koawa.arm))
+        driver.b.onPress(InstantCommand({koawa.arm.motor.followMotionProfile(Arm.topPosition)}, koawa.arm))
 
-        driver.a.onPress(InstantCommand({koawa.arm.setPIDTarget(Arm.armIntakePos)}, koawa.arm))
+        driver.a.onPress(InstantCommand({koawa.arm.motor.followMotionProfile(Arm.armIntakePos)}, koawa.arm))
 
-        koawa.turret.setPIDTarget(0.0)
-        koawa.arm.setPIDTarget(0.0)
+        koawa.turret.motor.followMotionProfile(0.0)
+        koawa.arm.motor.followMotionProfile(0.0)
     }
 
 
     override fun mStart() {
-        koawa.arm.disabled = false
-        koawa.turret.disabled = false
     }
 
     override fun mLoop() {
-        Logger.addTelemetryData("arm angle", koawa.armEncoder.position)
-        Logger.addTelemetryData("power", koawa.drive.powers)
-//        Logger.addTelemetryData("position", koawa.drive.pose)
-        Logger.addTelemetryData("turret angle", koawa.turretEncoder.position)
-        Logger.addTelemetryData("arm angle", koawa.armEncoder.position)
+//        Logger.addTelemetryData("power", koawa.drive.powers)
+////        Logger.addTelemetryData("position", koawa.drive.pose)
+//        Logger.addTelemetryData("turret angle", koawa.turret.motor.encoder.position)
+//        Logger.addTelemetryData("arm angle", koawa.arm.motor.encoder.position)
 //        Logger.addTelemetryData("dSensor", koawa.loadingSensor.invokeDouble())
     }
 }

@@ -8,15 +8,15 @@ import org.firstinspires.ftc.teamcode.koawalib.subsystem.Clocking
 import org.firstinspires.ftc.teamcode.koawalib.subsystem.Turret
 
 class TurretSequenceCommand(turret : Turret, turretAngle: Double, arm: Arm, armAngle: Double, clocking: Clocking) : SequentialCommandGroup(
-    InstantCommand({arm.setPIDTarget(Arm.topPosition)})
-        .alongWith(InstantCommand({turret.setPIDTarget(turretAngle)})),
+    InstantCommand({arm.motor.followMotionProfile(Arm.topPosition)})
+        .alongWith(InstantCommand({turret.motor.followMotionProfile(turretAngle)})),
     WaitCommand(0.3),
-    InstantCommand({arm.setPIDTarget(armAngle)})
+    InstantCommand({arm.motor.followMotionProfile(armAngle)})
 )
 
 class TurretSharedCommand(turret: Turret, turretAngle : Double, arm : Arm, armAngle : Double) : SequentialCommandGroup(
-    InstantCommand({arm.setPIDTarget(60.0)})
-        .alongWith(InstantCommand({turret.setPIDTarget(turretAngle)})),
+    InstantCommand({arm.motor.followMotionProfile(60.0)})
+        .alongWith(InstantCommand({turret.motor.followMotionProfile(turretAngle)})),
     WaitCommand(0.5),
-    InstantCommand({arm.setPIDTarget(armAngle)})
+    InstantCommand({arm.motor.followMotionProfile(armAngle)})
 )

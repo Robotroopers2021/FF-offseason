@@ -10,13 +10,13 @@ class IntakeSequenceCommand (intake : Intake, turret : Turret, turretAngle: Doub
         ClockingCommands.ClockingIntake(clocking)
                 .alongWith(SlidesCommands.SlidesIntakeCommand(slides)),
         WaitCommand(0.3),
-        InstantCommand({arm.setPIDTarget(Arm.armIntakePos)}, arm)
+        InstantCommand({arm.motor.followMotionProfile(Arm.armIntakePos)}, arm)
                 .alongWith(IntakeCommands.IntakeOn(intake))
                 .alongWith(InstantCommand(intake::startReading)),
         WaitUntilCommand(intake::hasMineral),
         IntakeCommands.IntakeSlow(intake),
         WaitCommand(0.5),
-        InstantCommand({arm.setPIDTarget(armAngle)}, arm)
+        InstantCommand({arm.motor.followMotionProfile(armAngle)}, arm)
                 .alongWith(SlidesCommands.SlidesHomeCommand(slides))
                 .alongWith(ClockingCommands.ClockingLift(clocking))
 //                .alongWith(InstantCommand({turret.setPIDTarget(turretAngle)}, turret))

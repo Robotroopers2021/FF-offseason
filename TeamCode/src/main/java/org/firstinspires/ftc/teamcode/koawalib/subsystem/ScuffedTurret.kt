@@ -6,7 +6,7 @@ import com.asiankoala.koawalib.subsystem.DeviceSubsystem
 
 class ScuffedTurret (private val motor: KMotor) : DeviceSubsystem() {
     fun setPower(power: Double) {
-        motor.setSpeed(power)
+        motor.power = power
     }
 }
 

@@ -1,14 +1,13 @@
 package org.firstinspires.ftc.teamcode.koawalib.opmodes
 
 import com.asiankoala.koawalib.command.CommandOpMode
-import com.asiankoala.koawalib.command.commands.GoToPointCommand
 import com.asiankoala.koawalib.command.commands.InfiniteCommand
 import com.asiankoala.koawalib.command.commands.InstantCommand
 import com.asiankoala.koawalib.command.commands.MecanumDriveCommand
 import com.asiankoala.koawalib.math.Pose
 import com.asiankoala.koawalib.math.radians
-import com.asiankoala.koawalib.util.Logger
-import com.asiankoala.koawalib.util.LoggerConfig
+import com.asiankoala.koawalib.logger.Logger
+import com.asiankoala.koawalib.logger.LoggerConfig
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.koawalib.Koawa
 import org.firstinspires.ftc.teamcode.koawalib.ScuffedKoawa

@@ -2,11 +2,9 @@ package org.firstinspires.ftc.teamcode.koawalib.subsystem
 
 import com.asiankoala.koawalib.hardware.motor.KMotor
 import com.asiankoala.koawalib.hardware.sensor.KDistanceSensor
-import com.asiankoala.koawalib.subsystem.intake.IntakeConfig
-import com.asiankoala.koawalib.subsystem.intake.KDistanceSensorIntake
 import com.asiankoala.koawalib.subsystem.intake.KIntake
 
-class Intake(motor: KMotor, private val sensor: KDistanceSensor) : KIntake(motor, IntakeConfig(0.75)) {
+class Intake(motor: KMotor, private val sensor: KDistanceSensor) : KIntake(motor, 0.75) {
     companion object IntakeConstants {
         const val SENSOR_THRESHOLD = 57.0
     }
@@ -35,7 +33,7 @@ class Intake(motor: KMotor, private val sensor: KDistanceSensor) : KIntake(motor
 
     override fun periodic() {
         if(isReadingSensor) {
-            lastRead = sensor.invokeDouble()
+            lastRead = sensor.lastRead
         }
     }
 }
