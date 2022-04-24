@@ -98,7 +98,7 @@ class Koawa {
     val turret = Turret(turretMotor)
 
     init {
-        arm.motor.encoder.zero(-52.0)
-        turret.motor.encoder.zero(0.0)
+        arm.motor.encoder.zero(-52.0).update()
+        turret.motor.encoder.zero(0.0).update()
     }
 }

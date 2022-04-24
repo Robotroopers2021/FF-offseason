@@ -89,10 +89,10 @@ class KoawaBlueOp : CommandOpMode() {
     }
 
     override fun mLoop() {
-//        Logger.addTelemetryData("power", koawa.drive.powers)
-////        Logger.addTelemetryData("position", koawa.drive.pose)
-//        Logger.addTelemetryData("turret angle", koawa.turret.motor.encoder.position)
-//        Logger.addTelemetryData("arm angle", koawa.arm.motor.encoder.position)
-//        Logger.addTelemetryData("dSensor", koawa.loadingSensor.invokeDouble())
+        Logger.addTelemetryData("power", koawa.drive.powers)
+//        Logger.addTelemetryData("position", koawa.drive.pose)
+        Logger.addTelemetryData("turret angle", koawa.turret.motor.encoder.position)
+        Logger.addTelemetryData("arm angle", koawa.arm.motor.encoder.position)
+//        Logger.addTelemetryData("dSensor", koawa.loadingSensor.lastRead)
     }
 }
