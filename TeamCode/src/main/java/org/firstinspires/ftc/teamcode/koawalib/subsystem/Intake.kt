@@ -3,22 +3,23 @@ package org.firstinspires.ftc.teamcode.koawalib.subsystem
 import com.asiankoala.koawalib.hardware.motor.KMotor
 import com.asiankoala.koawalib.hardware.sensor.KDistanceSensor
 import com.asiankoala.koawalib.subsystem.intake.KIntake
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit
 
 class Intake(motor: KMotor, private val sensor: KDistanceSensor) : KIntake(motor, 0.75) {
     companion object IntakeConstants {
-        const val SENSOR_THRESHOLD = 57.0
+        const val SENSOR_THRESHOLD = 63.0
     }
     private var isReadingSensor = false
     private var lastRead = Double.POSITIVE_INFINITY
 
     fun startReading() {
         isReadingSensor = true
-        lastRead = Double.POSITIVE_INFINITY
+        lastRead = sensor.lastRead
     }
 
     fun stopReading() {
         isReadingSensor = false
-        lastRead = Double.POSITIVE_INFINITY
+        lastRead = sensor.lastRead
     }
 
     fun slowIntake() {
@@ -32,8 +33,9 @@ class Intake(motor: KMotor, private val sensor: KDistanceSensor) : KIntake(motor
     val hasMineral get() = sensor.lastRead < SENSOR_THRESHOLD
 
     override fun periodic() {
-        if(isReadingSensor) {
-            lastRead = sensor.lastRead
+        if(isReadingSensor == true){
+            sensor.periodic()
         }
     }
+
 }

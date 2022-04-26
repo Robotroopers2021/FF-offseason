@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.koawalib.subsystem.*
 
 class IntakeSequenceCommand (intake : Intake, turret : Turret, turretAngle: Double, arm : Arm, slides : Slides, armAngle : Double, clocking : Clocking) : SequentialCommandGroup(
         ClockingCommands.ClockingIntake(clocking)
-                .alongWith(InstantCommand({arm.motor.followMotionProfile(Arm.armIntakePos)}, arm)),
+                .alongWith(InstantCommand({arm.motor.setPIDTarget(Arm.armIntakePos)}, arm)),
         WaitCommand(0.3),
         SlidesCommands.SlidesIntakeCommand(slides)
                 .alongWith(IntakeCommands.IntakeOn(intake))

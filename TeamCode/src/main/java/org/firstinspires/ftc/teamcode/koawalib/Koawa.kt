@@ -59,10 +59,10 @@ class Koawa {
             "Arm",
             672.0/90.0,
             false,
-            MotorControlType.MOTION_PROFILE,
+            MotorControlType.POSITION_PID,
 
             PIDConstants(
-            kP = 0.09,
+            kP = 0.09,//0.09
             kI = 0.0,//0.1
             kD = 0.0009 //0.00055
             ),
@@ -70,8 +70,8 @@ class Koawa {
            kCos = 0.1
             ),
             positionEpsilon = 2.0, //0.6
-            maxVelocity = 70.0,
-            maxAcceleration = 50.0
+//            maxVelocity = 120.0,
+//            maxAcceleration = 100.0
         )).brake as KMotorEx
 //    val retractServo = KServo("Retract").startAt(0.7)
 
@@ -98,7 +98,7 @@ class Koawa {
     val turret = Turret(turretMotor)
 
     init {
-        arm.motor.encoder.zero(-52.0).update()
+        arm.motor.encoder.zero(-55.0).update()
         turret.motor.encoder.zero(0.0).update()
     }
 }

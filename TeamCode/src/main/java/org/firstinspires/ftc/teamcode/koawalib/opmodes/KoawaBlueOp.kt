@@ -21,7 +21,6 @@ class KoawaBlueOp : CommandOpMode() {
     override fun mInit() {
         Logger.config = LoggerConfig(isLogging = true, isPrinting = false, isLoggingTelemetry = true, isDebugging = false, maxErrorCount = 1)
         koawa = Koawa()
-
         koawa.drive.setDefaultCommand(
             MecanumDriveCommand(
             koawa.drive,
@@ -32,11 +31,11 @@ class KoawaBlueOp : CommandOpMode() {
         )
         )
 
-//        driver.leftTrigger.onPress(IntakeSequenceCommand(koawa.intake, koawa.turret, Turret.allianceAngleBlue, koawa.arm, koawa.slides, Arm.topPosition, koawa.clocking))
+        driver.leftTrigger.onPress(IntakeSequenceCommand(koawa.intake, koawa.turret, Turret.allianceAngleBlue, koawa.arm, koawa.slides, Arm.topPosition, koawa.clocking))
 
         driver.rightBumper.onPress(SlidesCommands.SlidesAllianceCommand(koawa.slides))
 
-//        driver.rightTrigger.onPress(ClockingCommands.ClockingDeposit(koawa.clocking).alongWith(IntakeCommands.Outtake(koawa.intake)))
+        driver.rightTrigger.onPress(ClockingCommands.ClockingDeposit(koawa.clocking).alongWith(IntakeCommands.Outtake(koawa.intake)))
 
         driver.leftBumper.onPress(ResetAfterDepositCommand(koawa.turret, koawa.arm, koawa.slides, Turret.turretHomeAngle, koawa.intake, koawa.clocking))
 
@@ -76,12 +75,12 @@ class KoawaBlueOp : CommandOpMode() {
 
         driver.x.onPress(InstantCommand({koawa.turret.motor.followMotionProfile(Turret .turretHomeAngle)}, koawa.turret))
 
-        driver.b.onPress(InstantCommand({koawa.arm.motor.followMotionProfile(Arm.topPosition)}, koawa.arm))
+        driver.b.onPress(InstantCommand({koawa.arm.motor.setPIDTarget(Arm.topPosition)}, koawa.arm))
 
-        driver.a.onPress(InstantCommand({koawa.arm.motor.followMotionProfile(Arm.armIntakePos)}, koawa.arm))
+        driver.a.onPress(InstantCommand({koawa.arm.motor.setPIDTarget(Arm.armIntakePos)}, koawa.arm))
 
-        koawa.turret.motor.followMotionProfile(0.0)
-        koawa.arm.motor.followMotionProfile(0.0)
+//        koawa.turret.motor.followMotionProfile(0.0)
+//        koawa.arm.motor.followMotionProfile(0.0)
     }
 
 
@@ -89,10 +88,11 @@ class KoawaBlueOp : CommandOpMode() {
     }
 
     override fun mLoop() {
-        Logger.addTelemetryData("power", koawa.drive.powers)
+//        Logger.addTelemetryData("power", koawa.drive.powers)
 //        Logger.addTelemetryData("position", koawa.drive.pose)
-        Logger.addTelemetryData("turret angle", koawa.turret.motor.encoder.position)
+//        Logger.addTelemetryData("turret angle", koawa.turret.motor.encoder.position)
         Logger.addTelemetryData("arm angle", koawa.arm.motor.encoder.position)
 //        Logger.addTelemetryData("dSensor", koawa.loadingSensor.lastRead)
+        Logger.addTelemetryData("dsensor", koawa.loadingSensor.lastRead)
     }
 }
