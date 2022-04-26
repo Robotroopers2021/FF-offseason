@@ -22,7 +22,7 @@ class Intake(motor: KMotor, private val sensor: KDistanceSensor) : KIntake(motor
         lastRead = sensor.lastRead
     }
 
-    fun slowIntake() {
+    fun fastIntake() {
         setIntakeSpeed(1.0)
     }
 
@@ -33,7 +33,7 @@ class Intake(motor: KMotor, private val sensor: KDistanceSensor) : KIntake(motor
     val hasMineral get() = sensor.lastRead < SENSOR_THRESHOLD
 
     override fun periodic() {
-        if(isReadingSensor == true){
+        if(isReadingSensor){
             sensor.periodic()
         }
     }

@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.teamcode.koawalib.subsystem
 
-import com.acmerobotics.dashboard.config.Config
-import com.asiankoala.koawalib.command.commands.InstantCommand
 import com.asiankoala.koawalib.hardware.motor.KMotorEx
 import com.asiankoala.koawalib.subsystem.DeviceSubsystem
-import com.asiankoala.koawalib.subsystem.odometry.KEncoder
 
 class Turret(val motor : KMotorEx) : DeviceSubsystem() {
     companion object TurretConstants {
