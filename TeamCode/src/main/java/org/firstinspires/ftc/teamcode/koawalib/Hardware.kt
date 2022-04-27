@@ -39,7 +39,7 @@ class Hardware {
             "Turret",
             745.0/90.0,
             false,
-            MotorControlType.MOTION_PROFILE,
+            MotorControlType.POSITION_PID,
 
             PIDConstants(
                 kP = 0.1,
@@ -53,8 +53,8 @@ class Hardware {
             homePositionToDisable = 2.0,
             lowerBound = -180.0,
             upperBound = 180.0,
-            maxVelocity = 70.0,
-            maxAcceleration = 50.0
+//            maxVelocity = 70.0,
+//            maxAcceleration = 50.0
         )
     ).reverse.brake as KMotorEx
 

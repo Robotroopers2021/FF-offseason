@@ -50,6 +50,10 @@ class KoawaBlueOp : KOpMode() {
 
 //        driver.y.onPress(SlidesCommands.SlidesSharedExtCommand(koawa.slides))
 
+        gunner.dpadLeft.onPress(InstantCmd({koawa.turret.motor.setPIDTarget(340.0)}, koawa.turret))
+
+        gunner.dpadRight.onPress(InstantCmd({koawa.turret.motor.setPIDTarget(20.0)}, koawa.turret))
+
         gunner.leftBumper.onPress(TurretSequenceCommand(koawa.turret, Turret.allianceAngleBlue, koawa.arm, Arm.topPosition, koawa.clocking))
 
         gunner.b.onPress(TurretSequenceCommand(koawa.turret, Turret.allianceAngleBlue, koawa.arm, Arm.midPosition, koawa.clocking))
@@ -58,9 +62,9 @@ class KoawaBlueOp : KOpMode() {
 
         gunner.rightBumper.onPress(TurretSequenceCommand(koawa.turret, Turret.sharedAngleBlue, koawa.arm, Arm.sharedPosition, koawa.clocking))
 
-        driver.y.onPress(InstantCmd({koawa.turret.motor.followMotionProfile(Turret.allianceAngleBlue)}, koawa.turret)) //for testing
+        driver.y.onPress(InstantCmd({koawa.turret.motor.setPIDTarget(Turret.allianceAngleBlue)}, koawa.turret)) //for testing
 
-        driver.x.onPress(InstantCmd({koawa.turret.motor.followMotionProfile(Turret .turretHomeAngle)}, koawa.turret)) //for testing
+        driver.x.onPress(InstantCmd({koawa.turret.motor.setPIDTarget(Turret .turretHomeAngle)}, koawa.turret)) //for testing
 
         driver.b.onPress(InstantCmd({koawa.arm.motor.setPIDTarget(Arm.topPosition)}, koawa.arm)) //for testing
 
@@ -77,7 +81,7 @@ class KoawaBlueOp : KOpMode() {
     override fun mLoop() {
 //        Logger.addTelemetryData("power", koawa.drive.powers)
 //        Logger.addTelemetryData("position", koawa.drive.pose)
-//        Logger.addTelemetryData("turret angle", koawa.turret.motor.encoder.position)
+        Logger.addTelemetryData("turret angle", koawa.turret.motor.encoder.position)
         Logger.addTelemetryData("arm angle", koawa.arm.motor.encoder.position)
         Logger.addTelemetryData("dSensor", koawa.hardware.loadingSensor.lastRead)
     }

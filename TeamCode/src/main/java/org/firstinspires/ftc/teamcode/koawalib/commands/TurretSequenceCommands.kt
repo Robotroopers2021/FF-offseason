@@ -9,14 +9,14 @@ import org.firstinspires.ftc.teamcode.koawalib.subsystem.Turret
 
 class TurretSequenceCommand(turret : Turret, turretAngle: Double, arm: Arm, armAngle: Double, clocking: Clocking) : SequentialGroup(
     InstantCmd({arm.motor.setPIDTarget(Arm.topPosition)})
-        .alongWith(InstantCmd({turret.motor.followMotionProfile(turretAngle)})),
+        .alongWith(InstantCmd({turret.motor.setPIDTarget(turretAngle)})),
     WaitCmd(0.3),
     InstantCmd({arm.motor.setPIDTarget(armAngle)})
 )
 
 class TurretSharedCommand(turret: Turret, turretAngle : Double, arm : Arm, armAngle : Double) : SequentialGroup(
     InstantCmd({arm.motor.setPIDTarget(60.0)})
-        .alongWith(InstantCmd({turret.motor.followMotionProfile(turretAngle)})),
+        .alongWith(InstantCmd({turret.motor.setPIDTarget(turretAngle)})),
     WaitCmd(0.5),
     InstantCmd({arm.motor.setPIDTarget(armAngle)})
 )

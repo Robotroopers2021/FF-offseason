@@ -10,7 +10,7 @@ class ResetAfterDepositCommand(turret : Turret, arm : Arm, slides : Slides, turr
     IntakeCommands.IntakeOff(intake)
         .alongWith(SlidesCommands.SlidesHomeCommand(slides)),
     WaitCmd(0.5),
-    InstantCmd({turret.motor.followMotionProfile(turretAngle)}),
+    InstantCmd({turret.motor.setPIDTarget(turretAngle)}),
     WaitCmd(0.5),
     (InstantCmd({arm.motor.setPIDTarget(Arm.startPosition)}))
         .alongWith(ClockingCommands.ClockingIntake(clocking))
