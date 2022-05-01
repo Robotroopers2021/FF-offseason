@@ -9,4 +9,5 @@ class SlidesCommands {
     class SlidesHomeCommand(slides: Slides) : InstantCmd(slides::home, slides)
     class SlidesIntakeCommand(slides : Slides) : InstantCmd(slides::intakePos, slides)
     class SlidesSharedCommand(slides : Slides) : InstantCmd(slides::shared, slides)
+    class SlidesIntakeExtCommand(slides : Slides) : InstantCmd(slides::intakeExt, slides)
 }

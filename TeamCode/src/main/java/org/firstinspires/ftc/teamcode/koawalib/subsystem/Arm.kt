@@ -10,11 +10,11 @@ class Arm(val motor : KMotorEx) : DeviceSubsystem() {
         const val topPosition = 10.0
         const val midPosition = -15.0
         const val bottomPosition = -30.0
-        const val sharedPosition = 25.0 -55
-        const val sharedMid = 20.0 -55
-        const val sharedLow = 15.0 -55
-        const val sharedHigh = 25.0 -55
-        const val startPosition = -35.0
+        const val sharedPosition = -30.0
+        const val sharedLow = 25.0
+        const val sharedHigh = 35.0
+        const val homePosition = -35.0
+        const val armIntakeExt = -32.0
         const val armIntakePos = -35.0
     }
 

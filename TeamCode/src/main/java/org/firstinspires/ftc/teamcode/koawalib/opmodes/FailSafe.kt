@@ -29,8 +29,9 @@ class FailSafe : KOpMode() {
         gunner.dpadDown.onPress(InstantCmd({koawa.turret.setPower(-0.25)}, koawa.turret))
         gunner.a.onPress(InstantCmd({koawa.turret.setPower(0.0)}, koawa.turret))
 
-        gunner.leftBumper.onPress(InstantCmd({koawa.arm.setPower(-0.25)}, koawa.arm))
-        gunner.rightBumper.onPress(InstantCmd({koawa.arm.setPower(0.0)}, koawa.arm))
+        gunner.rightTrigger.onPress(InstantCmd({koawa.arm.setPower(-0.25)}, koawa.arm))
+        gunner.leftTrigger.onPress(InstantCmd({koawa.arm.setPower(0.25)}, koawa.arm))
+        gunner.leftBumper.onPress(InstantCmd({koawa.arm.setPower(0.0)}, koawa.arm))
     }
 
 

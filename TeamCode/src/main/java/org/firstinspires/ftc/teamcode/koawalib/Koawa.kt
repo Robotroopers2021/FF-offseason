@@ -28,6 +28,8 @@ class Koawa {
 
     init {
         arm.motor.encoder.zero(-55.0).update()
-        turret.motor.encoder.zero(0.0).update()
+        arm.motor.setPIDTarget(-55.0)
+        turret.motor.encoder.zero(0.0).reversed.update()
+        turret.motor.setPIDTarget(0.0)
     }
 }

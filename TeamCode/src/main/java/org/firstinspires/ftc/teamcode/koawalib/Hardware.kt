@@ -42,17 +42,17 @@ class Hardware {
             MotorControlType.POSITION_PID,
 
             PIDConstants(
-                kP = 0.1,
+                kP = 0.1,//0.1
                 kI= 0.0,
-                kD = 0.003
+                kD = 0.003//0.003
             ),
             FeedforwardConstants(
-                kStatic = 0.003
+                kStatic = 0.003//0.003
             ),
-            positionEpsilon = 2.0,
-            homePositionToDisable = 2.0,
-            lowerBound = -180.0,
-            upperBound = 180.0,
+            positionEpsilon = 2.0,//2.0
+            homePositionToDisable = 2.0,//2.0
+            lowerBound = -180.0,//-180.0
+            upperBound = 180.0,//180.0
 //            maxVelocity = 70.0,
 //            maxAcceleration = 50.0
         )

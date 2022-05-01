@@ -7,11 +7,12 @@ class Slides (private val servo: KServo) : DeviceSubsystem() {
 
     companion object SlideConstants {
         const val alliancePosition = 0.3
-        const val sharedPositionExt = 0.45
-        const val sharedPosition = 0.7
+        const val sharedPositionExt = 0.5
+        const val sharedPosition = 0.75
         const val homePosition = 0.9
         const val intakePosition = 0.3
         const val zeroPosition = 0.9
+        const val intakeExtPos = 0.5
     }
 
     fun home() {
@@ -36,6 +37,9 @@ class Slides (private val servo: KServo) : DeviceSubsystem() {
 
     fun shared() {
         servo.position = sharedPosition
+    }
+    fun intakeExt() {
+        servo.position = intakeExtPos
     }
 }
 
