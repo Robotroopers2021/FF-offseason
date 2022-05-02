@@ -1,8 +1,12 @@
 package org.firstinspires.ftc.teamcode.koawalib.opmodes
 
+import android.util.Log
 import com.asiankoala.koawalib.command.KOpMode
 import com.asiankoala.koawalib.command.commands.InstantCmd
 import com.asiankoala.koawalib.command.commands.MecanumCmd
+import com.asiankoala.koawalib.command.commands.WaitCmd
+import com.asiankoala.koawalib.command.commands.WaitForCmd
+import com.asiankoala.koawalib.command.group.SequentialGroup
 import com.asiankoala.koawalib.logger.Logger
 import com.asiankoala.koawalib.logger.LoggerConfig
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
@@ -47,15 +51,7 @@ class KoawaBlueOp : KOpMode() {
     }
 
     private fun bindDuck() {
-        driver.dpadUp.whilePressed(DuckSpinnerCommand (0.25, koawa.duckSpinner )
-            .pauseFor(0.45)
-            .andThen( DuckSpinnerCommand (0.35, koawa.duckSpinner))
-            .pauseFor(0.5)
-            .andThen(DuckSpinnerCommand (0.85, koawa.duckSpinner ))
-            .pauseFor(0.4)
-            .andThen(DuckSpinnerCommand (0.0, koawa.duckSpinner ))
-            .cancelIf { driver.dpadUp.isJustReleased }
-        )
+        driver.dpadUp.onPress(DuckSequenceCommand(koawa.duckSpinner).cancelIf (driver.dpadUp::isJustReleased))
     }
 
     private fun bindDeposit() {
@@ -66,7 +62,7 @@ class KoawaBlueOp : KOpMode() {
     }
 
     private fun bindIntake() {
-        driver.leftTrigger.onPress(IntakeSequenceCommand(koawa.intake, koawa.turret,  koawa.arm, koawa.slides, koawa.clocking))
+        driver.leftTrigger.onPress(IntakeSequenceCommand(koawa.intake, koawa.turret,  koawa.arm, koawa.slides, koawa.clocking).cancelIf(driver.dpadUp::isPressed))
         driver.leftBumper.onPress(IntakeSequenceExtCommand(koawa.intake, koawa.turret,  koawa.arm, koawa.slides, koawa.clocking))
     }
 

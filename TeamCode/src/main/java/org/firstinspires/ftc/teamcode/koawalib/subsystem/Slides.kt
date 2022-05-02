@@ -10,9 +10,9 @@ class Slides (private val servo: KServo) : DeviceSubsystem() {
         const val sharedPositionExt = 0.5
         const val sharedPosition = 0.75
         const val homePosition = 0.9
-        const val intakePosition = 0.3
+        const val intakePosition = 0.6
         const val zeroPosition = 0.9
-        const val intakeExtPos = 0.5
+        const val intakeExtPos = 0.3
     }
 
     fun home() {

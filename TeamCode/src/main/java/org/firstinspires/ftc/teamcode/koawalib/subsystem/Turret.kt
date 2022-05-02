@@ -9,7 +9,7 @@ class Turret(val motor : KMotorEx) : DeviceSubsystem() {
         const val allianceHomeAngle = 0.0
         const val sharedHomeAngle = 180.0
         const val allianceAngleBlue = 90.0
-        const val sharedAngle = 90.0
+        const val sharedAngle = 270.0
         const val allianceAngleRed = 270.0
     }
 }
