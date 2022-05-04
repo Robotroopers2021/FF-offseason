@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.koawalib.subsystem
 
 import com.acmerobotics.dashboard.config.Config
+import com.asiankoala.koawalib.command.commands.InstantCmd
+import com.asiankoala.koawalib.command.group.SequentialGroup
 import com.asiankoala.koawalib.hardware.motor.KMotorEx
 import com.asiankoala.koawalib.subsystem.DeviceSubsystem
 import org.firstinspires.ftc.teamcode.util.Encoder
@@ -18,6 +20,20 @@ class Arm(val motor : KMotorEx) : DeviceSubsystem() {
         const val armIntakePos = -40.0
     }
 
+    fun setPower(power: Double) {
+        motor.power = power
+    }
+
 }
 
+class ArmCommand(private val power: Double, private val arm: Arm) : SequentialGroup(
+ InstantCmd({ arm.setPower(power) }, arm)
+){
+    init {
+        addRequirements(arm)
+    }
 
+    override fun end() {
+        arm.setPower(0.0)
+    }
+}

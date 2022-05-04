@@ -12,9 +12,7 @@ import com.asiankoala.koawalib.logger.LoggerConfig
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.koawalib.Koawa
 import org.firstinspires.ftc.teamcode.koawalib.commands.*
-import org.firstinspires.ftc.teamcode.koawalib.subsystem.Arm
-import org.firstinspires.ftc.teamcode.koawalib.subsystem.DuckSpinnerCommand
-import org.firstinspires.ftc.teamcode.koawalib.subsystem.Turret
+import org.firstinspires.ftc.teamcode.koawalib.subsystem.*
 
 @TeleOp
 class KoawaBlueOp : KOpMode() {
@@ -35,6 +33,7 @@ class KoawaBlueOp : KOpMode() {
         bindDeposit()
         bindIntake()
         bindTurret()
+        bindCapping()
 //        bindTest()
     }
 
@@ -62,13 +61,11 @@ class KoawaBlueOp : KOpMode() {
     }
 
     private fun bindIntake() {
-        driver.leftTrigger.onPress(IntakeSequenceCommand(koawa.intake, koawa.turret,  koawa.arm, koawa.slides, koawa.clocking).cancelIf(driver.dpadUp::isPressed))
+        driver.leftTrigger.onPress(IntakeSequenceCommand(koawa.intake, koawa.turret,  koawa.arm, koawa.slides, koawa.clocking))
         driver.leftBumper.onPress(IntakeSequenceExtCommand(koawa.intake, koawa.turret,  koawa.arm, koawa.slides, koawa.clocking))
     }
 
     private fun bindTurret() {
-        gunner.dpadLeft.onPress(InstantCmd({koawa.turret.motor.setPIDTarget(355.0)}, koawa.turret))
-        gunner.dpadRight.onPress(InstantCmd({koawa.turret.motor.setPIDTarget(10.0)}, koawa.turret))
         gunner.leftBumper.onPress(TurretSequenceCommand(koawa.turret, koawa.arm, koawa.slides, koawa.intake, koawa.clocking, Turret.allianceAngleBlue, Arm.topPosition))
         gunner.rightBumper.onPress(TurretSequenceCommand(koawa.turret, koawa.arm, koawa.slides, koawa.intake, koawa.clocking, Turret.sharedAngle, Arm.sharedPosition))
         gunner.leftTrigger.onPress(ResetAfterDepositCommand(koawa.turret, koawa.arm, koawa.slides, Turret.allianceHomeAngle, koawa.intake, koawa.clocking))
@@ -82,6 +79,13 @@ class KoawaBlueOp : KOpMode() {
         driver.x.onPress(InstantCmd({koawa.turret.motor.setPIDTarget(Turret.allianceHomeAngle)}, koawa.turret))
         driver.b.onPress(InstantCmd({koawa.arm.motor.setPIDTarget(Arm.topPosition)}, koawa.arm))
         driver.a.onPress(InstantCmd({koawa.arm.motor.setPIDTarget(Arm.armIntakePos)}, koawa.arm))
+    }
+
+    private fun bindCapping() {
+        gunner.dpadLeft.onPress(TurretCommand(-0.25, koawa.turret).cancelIf { gunner.dpadLeft.isJustReleased })
+        gunner.dpadRight.onPress(TurretCommand(0.25, koawa.turret).cancelIf { gunner.dpadRight.isJustReleased })
+        gunner.dpadUp.onPress(ArmCommand(0.5, koawa.arm).cancelIf { gunner.dpadUp.isJustReleased })
+        gunner.dpadDown.onPress(ArmCommand(-0.5, koawa.arm).cancelIf { gunner.dpadDown.isJustReleased })
     }
 
     override fun mStart() {
