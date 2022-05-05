@@ -82,10 +82,10 @@ class KoawaBlueOp : KOpMode() {
     }
 
     private fun bindCapping() {
-        gunner.dpadLeft.onPress(TurretCommand(-0.25, koawa.turret).cancelIf { gunner.dpadLeft.isJustReleased })
-        gunner.dpadRight.onPress(TurretCommand(0.25, koawa.turret).cancelIf { gunner.dpadRight.isJustReleased })
-        gunner.dpadUp.onPress(ArmCommand(0.5, koawa.arm).cancelIf { gunner.dpadUp.isJustReleased })
-        gunner.dpadDown.onPress(ArmCommand(-0.5, koawa.arm).cancelIf { gunner.dpadDown.isJustReleased })
+        gunner.dpadLeft.onPress(TurretCommand(-0.25, koawa.turret).cancelIf { gunner.dpadLeft.isJustReleased }.alongWith(ClockingCommands.ClockingCap(koawa.clocking)))
+        gunner.dpadRight.onPress(TurretCommand(0.25, koawa.turret).cancelIf { gunner.dpadRight.isJustReleased }.alongWith(ClockingCommands.ClockingCap(koawa.clocking)))
+        gunner.dpadUp.onPress(ArmCommand(0.5, koawa.arm).cancelIf { gunner.dpadUp.isJustReleased }.alongWith(ClockingCommands.ClockingCap(koawa.clocking)))
+        gunner.dpadDown.onPress(ArmCommand(-0.5, koawa.arm).cancelIf { gunner.dpadDown.isJustReleased }.alongWith(ClockingCommands.ClockingCap(koawa.clocking)))
     }
 
     override fun mStart() {
