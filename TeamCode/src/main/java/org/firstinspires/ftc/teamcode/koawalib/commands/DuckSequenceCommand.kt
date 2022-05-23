@@ -33,10 +33,10 @@ private var motionTimer = ElapsedTime()
 
 fun setDuckSpeed(time : Double) : Double{
     var result = 0.0
-    if(time > 0 && time<=1) {
-        result = (2.0/3.0) * (1.9).pow(time) - (2.0/4.0)
-    } else if (time > 1.0 && time < 1.6 ) {
-        result = 0.76
+    if(time > 0.0 && time <= 0.9) {
+        result = ((time.pow(4.0)) / (4.0)) + 0.325
+    } else if (time > 0.9 && time < 1.4  ) {
+        result = 0.85
     }
     return result
 }

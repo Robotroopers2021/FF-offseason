@@ -25,14 +25,18 @@ class Hardware {
 
     val slidesServo = KServo("Slides").startAt(Slides.zeroPosition)
     val clockingServo = KServo("Clocking").startAt(0.5)
-    //    val retractServo = KServo("Retract").startAt(0.7)
 
     val loadingSensor = KDistanceSensor("dSensor")
     val imu = KIMU("imu", AxesOrder.XYZ, AxesSigns.NPN)
     //    val turretLimitSwitch = KLimitSwitch("limitSwitch")
 
-    val leftEncoder = KEncoder(bl, 1892.3724, true).reversed.zero()
-    val perpEncoder = KEncoder(br, 1892.3724, true).reversed.zero()
+    val rightEncoder = KEncoder(br, 1892.3724, true).reversed.zero()
+    val leftEncoder = KEncoder(fr, 1892.3724, true).zero()
+    val perpEncoder = KEncoder(fl, 1892.3724, true).reversed.zero()
+
+    val rightRetract = KServo("Right Retract")
+    val leftRetract = KServo("Left Retract")
+    val perpRetract = KServo("Perp Retract")
 
     val turretMotor = KMotorEx(
         KMotorExConfig(

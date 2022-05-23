@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.koawalib
 
 import com.asiankoala.koawalib.subsystem.drive.KMecanumDrive
+import com.asiankoala.koawalib.subsystem.odometry.KThreeWheelOdometry
 import com.asiankoala.koawalib.subsystem.odometry.KTwoWheelOdometry
 import org.firstinspires.ftc.teamcode.koawalib.subsystem.*
 
@@ -8,7 +9,7 @@ class Koawa {
 
     val hardware = Hardware()
 
-    val driveOdo = KTwoWheelOdometry(hardware.imu, hardware.leftEncoder, hardware.perpEncoder, 1.857, 1.0 )
+    val driveOdo = KThreeWheelOdometry(hardware.leftEncoder, hardware.rightEncoder, hardware.perpEncoder, 1.857, 1.0 )
 
     val drive = KMecanumDrive(hardware.fl, hardware.bl, hardware.fr, hardware.br)
 
@@ -22,7 +23,6 @@ class Koawa {
     val intake = Intake(hardware.intakeMotor, hardware.loadingSensor)
     val slides = Slides(hardware.slidesServo)
     val clocking = Clocking(hardware.clockingServo)
-//    val retract = Retract(retractServo)
     val arm = Arm(hardware.armMotor)
     val turret = Turret(hardware.turretMotor)
 

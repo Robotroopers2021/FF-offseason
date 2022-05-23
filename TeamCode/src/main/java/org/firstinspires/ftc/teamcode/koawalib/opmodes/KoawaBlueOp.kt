@@ -10,6 +10,7 @@ import com.asiankoala.koawalib.command.group.SequentialGroup
 import com.asiankoala.koawalib.logger.Logger
 import com.asiankoala.koawalib.logger.LoggerConfig
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
+import org.firstinspires.ftc.teamcode.koawalib.Hardware
 import org.firstinspires.ftc.teamcode.koawalib.Koawa
 import org.firstinspires.ftc.teamcode.koawalib.commands.*
 import org.firstinspires.ftc.teamcode.koawalib.subsystem.*
@@ -35,6 +36,10 @@ class KoawaBlueOp : KOpMode() {
         bindTurret()
         bindCapping()
 //        bindTest()
+
+//        koawa.hardware.leftRetract.startAt(0.0)
+//        koawa.hardware.rightRetract.startAt(0.0)
+//        koawa.hardware.perpRetract.startAt(0.8)
     }
 
     private fun bindDrive() {
@@ -97,5 +102,8 @@ class KoawaBlueOp : KOpMode() {
         Logger.addTelemetryData("turret angle", koawa.turret.motor.encoder.position)
         Logger.addTelemetryData("arm angle", koawa.arm.motor.encoder.position)
         Logger.addTelemetryData("dSensor", koawa.hardware.loadingSensor.lastRead)
+        Logger.addTelemetryData("odoR pos", koawa.hardware.perpEncoder.position)
+        Logger.addTelemetryData("odoL pos", koawa.hardware.rightEncoder.position)
+        Logger.addTelemetryData("odoPerp pos", koawa.hardware.leftEncoder.position)
     }
 }
