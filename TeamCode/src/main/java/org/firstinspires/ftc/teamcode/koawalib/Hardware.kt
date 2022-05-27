@@ -30,9 +30,9 @@ class Hardware {
     val imu = KIMU("imu", AxesOrder.XYZ, AxesSigns.NPN)
     //    val turretLimitSwitch = KLimitSwitch("limitSwitch")
 
-    val rightEncoder = KEncoder(br, 1892.3724, true).reversed.zero()
-    val leftEncoder = KEncoder(fr, 1892.3724, true).zero()
-    val perpEncoder = KEncoder(fl, 1892.3724, true).reversed.zero()
+    val rightEncoder = KEncoder(br, 1892.3724, true).zero()
+    val leftEncoder = KEncoder(fl, 1892.3724, true).reversed.zero()
+    val perpEncoder = KEncoder(fr, 1892.3724, true).reversed.zero()
 
     val rightRetract = KServo("Right Retract")
     val leftRetract = KServo("Left Retract")

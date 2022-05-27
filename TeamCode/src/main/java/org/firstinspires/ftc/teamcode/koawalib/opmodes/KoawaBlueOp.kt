@@ -102,8 +102,9 @@ class KoawaBlueOp : KOpMode() {
         Logger.addTelemetryData("turret angle", koawa.turret.motor.encoder.position)
         Logger.addTelemetryData("arm angle", koawa.arm.motor.encoder.position)
         Logger.addTelemetryData("dSensor", koawa.hardware.loadingSensor.lastRead)
-        Logger.addTelemetryData("odoR pos", koawa.hardware.perpEncoder.position)
-        Logger.addTelemetryData("odoL pos", koawa.hardware.rightEncoder.position)
-        Logger.addTelemetryData("odoPerp pos", koawa.hardware.leftEncoder.position)
+        Logger.addTelemetryData("odoR pos", koawa.hardware.rightEncoder.position)
+        Logger.addTelemetryData("odoL pos", koawa.hardware.leftEncoder.position)
+        Logger.addTelemetryData("odoPerp pos", koawa.hardware.perpEncoder.position)
+        Logger.addTelemetryData("robot pose", koawa.driveOdo.pose)
     }
 }
