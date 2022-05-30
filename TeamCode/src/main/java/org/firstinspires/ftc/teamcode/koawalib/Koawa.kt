@@ -25,6 +25,7 @@ class Koawa {
     val clocking = Clocking(hardware.clockingServo)
     val arm = Arm(hardware.armMotor)
     val turret = Turret(hardware.turretMotor)
+    val door = Door(hardware.doorServo)
 
     init {
         arm.motor.encoder.zero(-55.0).update()

@@ -35,7 +35,7 @@ class KoawaBlueOp : KOpMode() {
         bindIntake()
         bindTurret()
         bindCapping()
-//        bindTest()
+        bindTest()
 
 //        koawa.hardware.leftRetract.startAt(0.0)
 //        koawa.hardware.rightRetract.startAt(0.0)
@@ -62,7 +62,9 @@ class KoawaBlueOp : KOpMode() {
         driver.rightTrigger.onPress(SlidesCommands.SlidesAllianceCommand(koawa.slides))
         driver.rightBumper.onPress(SlidesCommands.SlidesSharedExtCommand(koawa.slides))
         driver.a.onPress(SlidesCommands.SlidesSharedCommand(koawa.slides))
-        driver.b.onPress(ClockingCommands.ClockingDeposit(koawa.clocking).alongWith(IntakeCommands.Outtake(koawa.intake)))
+        driver.b.onPress(ClockingCommands.ClockingDeposit(koawa.clocking)
+            .alongWith(IntakeCommands.Outtake(koawa.intake))
+            .alongWith(DoorOpen(koawa.door)))
     }
 
     private fun bindIntake() {
@@ -73,17 +75,19 @@ class KoawaBlueOp : KOpMode() {
     private fun bindTurret() {
         gunner.leftBumper.onPress(TurretSequenceCommand(koawa.turret, koawa.arm, koawa.slides, koawa.intake, koawa.clocking, Turret.allianceAngleBlue, Arm.topPosition))
         gunner.rightBumper.onPress(TurretSequenceCommand(koawa.turret, koawa.arm, koawa.slides, koawa.intake, koawa.clocking, Turret.sharedAngle, Arm.sharedPosition))
-        gunner.leftTrigger.onPress(ResetAfterDepositCommand(koawa.turret, koawa.arm, koawa.slides, Turret.allianceHomeAngle, koawa.intake, koawa.clocking))
-        gunner.rightTrigger.onPress(ResetAfterDepositCommand(koawa.turret, koawa.arm, koawa.slides, Turret.sharedHomeAngle, koawa.intake, koawa.clocking))
+        gunner.leftTrigger.onPress(ResetAfterDepositCommand(koawa.turret, koawa.arm, koawa.slides, Turret.allianceHomeAngle, koawa.intake, koawa.clocking, koawa.door))
+        gunner.rightTrigger.onPress(ResetAfterDepositCommand(koawa.turret, koawa.arm, koawa.slides, Turret.sharedHomeAngle, koawa.intake, koawa.clocking, koawa.door))
         gunner.a.onPress(TurretSequenceCommand(koawa.turret, koawa.arm, koawa.slides, koawa.intake, koawa.clocking, Turret.allianceAngleBlue, Arm.midPosition))
     }
 
     private fun bindTest() {
-        gunner.x.onPress(TurretSequenceCommand(koawa.turret, koawa.arm, koawa.slides, koawa.intake, koawa.clocking, Turret.allianceAngleBlue, Arm.bottomPosition))
-        driver.y.onPress(InstantCmd({koawa.turret.motor.setPIDTarget(Turret.allianceAngleBlue)}, koawa.turret))
-        driver.x.onPress(InstantCmd({koawa.turret.motor.setPIDTarget(Turret.allianceHomeAngle)}, koawa.turret))
-        driver.b.onPress(InstantCmd({koawa.arm.motor.setPIDTarget(Arm.topPosition)}, koawa.arm))
-        driver.a.onPress(InstantCmd({koawa.arm.motor.setPIDTarget(Arm.armIntakePos)}, koawa.arm))
+//        gunner.x.onPress(TurretSequenceCommand(koawa.turret, koawa.arm, koawa.slides, koawa.intake, koawa.clocking, Turret.allianceAngleBlue, Arm.bottomPosition))
+//        driver.y.onPress(InstantCmd({koawa.turret.motor.setPIDTarget(Turret.allianceAngleBlue)}, koawa.turret))
+//        driver.x.onPress(InstantCmd({koawa.turret.motor.setPIDTarget(Turret.allianceHomeAngle)}, koawa.turret))
+//        driver.b.onPress(InstantCmd({koawa.arm.motor.setPIDTarget(Arm.topPosition)}, koawa.arm))
+//        driver.a.onPress(InstantCmd({koawa.arm.motor.setPIDTarget(Arm.armIntakePos)}, koawa.arm))
+        driver.y.onPress(DoorOpen(koawa.door))
+        driver.x.onPress(DoorZero(koawa.door))
     }
 
     private fun bindCapping() {

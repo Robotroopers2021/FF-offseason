@@ -12,6 +12,7 @@ import com.asiankoala.koawalib.hardware.sensor.KIMU
 import com.asiankoala.koawalib.hardware.servo.KServo
 import com.asiankoala.koawalib.subsystem.odometry.KEncoder
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder
+import org.firstinspires.ftc.teamcode.koawalib.subsystem.Door
 import org.firstinspires.ftc.teamcode.koawalib.subsystem.Slides
 
 class Hardware {
@@ -25,6 +26,7 @@ class Hardware {
 
     val slidesServo = KServo("Slides").startAt(Slides.zeroPosition)
     val clockingServo = KServo("Clocking").startAt(0.5)
+    val doorServo = KServo("Door").startAt(Door.zeroPosition)
 
     val loadingSensor = KDistanceSensor("dSensor")
     val imu = KIMU("imu", AxesOrder.XYZ, AxesSigns.NPN)

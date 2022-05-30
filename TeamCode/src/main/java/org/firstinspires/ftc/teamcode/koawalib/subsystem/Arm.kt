@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.util.Encoder
 
 class Arm(val motor : KMotorEx) : DeviceSubsystem() {
     companion object ArmConstants {
-        const val topPosition = 10.0
+        const val topPosition = 13.0
         const val midPosition = -15.0
         const val bottomPosition = -30.0
         const val sharedPosition = -30.0
