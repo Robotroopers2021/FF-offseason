@@ -6,13 +6,13 @@ import com.asiankoala.koawalib.subsystem.DeviceSubsystem
 class Slides (private val servo: KServo) : DeviceSubsystem() {
 
     companion object SlideConstants {
-        const val alliancePosition = 0.3
+        const val alliancePosition = 0.7
         const val sharedPositionExt = 0.5
-        const val sharedPosition = 0.75
-        const val homePosition = 0.9
-        const val intakePosition = 0.6
-        const val zeroPosition = 0.9
-        const val intakeExtPos = 0.3
+        const val sharedPosition = 0.25
+        const val homePosition = 0.0
+        const val intakePosition = 0.4
+        const val zeroPosition = 0.0
+        const val intakeExtPos = 0.7
     }
 
     fun home() {

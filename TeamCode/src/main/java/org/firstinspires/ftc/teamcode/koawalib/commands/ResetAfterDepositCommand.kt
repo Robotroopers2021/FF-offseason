@@ -13,7 +13,7 @@ class ResetAfterDepositCommand(turret : Turret, arm : Arm, slides : Slides, turr
     WaitCmd(0.5),
     (InstantCmd({arm.motor.setPIDTarget(Arm.homePosition)}))
         .alongWith(ClockingCommands.ClockingIntake(clocking))
-        .alongWith(DoorZero(door))
+        .alongWith(DoorIntake(door))
 ) {
     init {
         addRequirements(turret, arm, slides, clocking, door)

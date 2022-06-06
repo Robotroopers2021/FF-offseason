@@ -9,7 +9,7 @@ class TurretSequenceCommand(turret : Turret, arm : Arm, slides : Slides, intake 
         .alongWith(InstantCmd({turret.motor.setPIDTarget(turretAngle)}))
         .alongWith(SlidesCommands.SlidesHomeCommand(slides))
         .alongWith(ClockingCommands.ClockingLift(clocking))
-        .alongWith(IntakeCommands.IntakeFast(intake))
+        .alongWith(IntakeCommands.IntakeOff(intake))
         .alongWith(InstantCmd(intake::stopReading))
 
 ) {

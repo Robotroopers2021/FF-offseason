@@ -68,8 +68,8 @@ class KoawaBlueOp : KOpMode() {
     }
 
     private fun bindIntake() {
-        driver.leftTrigger.onPress(IntakeSequenceCommand(koawa.intake, koawa.turret,  koawa.arm, koawa.slides, koawa.clocking))
-        driver.leftBumper.onPress(IntakeSequenceExtCommand(koawa.intake, koawa.turret,  koawa.arm, koawa.slides, koawa.clocking))
+        driver.leftTrigger.onPress(IntakeSequenceCommand(koawa.intake, koawa.turret,  koawa.arm, koawa.slides, koawa.clocking, koawa.door))
+        driver.leftBumper.onPress(IntakeSequenceExtCommand(koawa.intake, koawa.turret,  koawa.arm, koawa.slides, koawa.clocking, koawa.door))
     }
 
     private fun bindTurret() {
@@ -86,8 +86,8 @@ class KoawaBlueOp : KOpMode() {
 //        driver.x.onPress(InstantCmd({koawa.turret.motor.setPIDTarget(Turret.allianceHomeAngle)}, koawa.turret))
 //        driver.b.onPress(InstantCmd({koawa.arm.motor.setPIDTarget(Arm.topPosition)}, koawa.arm))
 //        driver.a.onPress(InstantCmd({koawa.arm.motor.setPIDTarget(Arm.armIntakePos)}, koawa.arm))
-        driver.y.onPress(DoorOpen(koawa.door))
-        driver.x.onPress(DoorZero(koawa.door))
+        driver.y.onPress(SlidesCommands.SlidesHomeCommand(koawa.slides))
+        driver.x.onPress(SlidesCommands.SlidesAllianceCommand(koawa.slides))
     }
 
     private fun bindCapping() {

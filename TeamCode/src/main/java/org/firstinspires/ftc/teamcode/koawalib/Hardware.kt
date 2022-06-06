@@ -26,7 +26,7 @@ class Hardware {
 
     val slidesServo = KServo("Slides").startAt(Slides.zeroPosition)
     val clockingServo = KServo("Clocking").startAt(0.5)
-    val doorServo = KServo("Door").startAt(Door.zeroPosition)
+    val doorServo = KServo("Door").startAt(Door.lockPosition)
 
     val loadingSensor = KDistanceSensor("dSensor")
     val imu = KIMU("imu", AxesOrder.XYZ, AxesSigns.NPN)

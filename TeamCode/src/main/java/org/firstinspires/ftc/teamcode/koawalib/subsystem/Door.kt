@@ -7,18 +7,24 @@ import com.asiankoala.koawalib.subsystem.DeviceSubsystem
 class Door (private val servo : KServo) : DeviceSubsystem() {
 
     companion object DoorConstants {
-        const val zeroPosition = 0.0212
-        const val openPosition = 0.175
+        const val intakePosition = 0.5
+        const val openPosition = 0.68
+        const val lockPosition = 0.45
     }
 
-    fun zero() {
-        servo.position = zeroPosition
+    fun intake() {
+        servo.position = intakePosition
     }
 
     fun open() {
         servo.position = openPosition
     }
+
+    fun lock() {
+        servo.position = lockPosition
+    }
 }
 
 class DoorOpen(door : Door) : InstantCmd(door::open, door)
-class DoorZero(door : Door) : InstantCmd(door::zero, door)
+class DoorIntake(door : Door) : InstantCmd(door::intake, door)
+class DoorLock(door : Door) : InstantCmd(door::lock, door)
