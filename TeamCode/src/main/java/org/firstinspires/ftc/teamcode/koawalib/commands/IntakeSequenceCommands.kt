@@ -15,10 +15,10 @@ class IntakeSequenceCommand (intake : Intake, turret : Turret, arm : Arm, slides
         WaitForCmd(intake::hasMineral),
         ClockingCommands.ClockingLift(clocking)
                 .alongWith(IntakeCommands.IntakeOff(intake))
-                .alongWith(InstantCmd(intake::stopReading))
                 .alongWith(DoorLock(door)),
-        WaitCmd(0.5),
-        SlidesCommands.SlidesHomeCommand(slides),
+        WaitCmd(0.3),
+        SlidesCommands.SlidesHomeCommand(slides)
+                .alongWith(InstantCmd(intake::stopReading)),
 ) {
         init {
             addRequirements(intake, turret, arm, slides, clocking, door )
@@ -35,10 +35,10 @@ class IntakeSequenceExtCommand (intake : Intake, turret : Turret, arm : Arm, sli
         WaitForCmd(intake::hasMineral),
         ClockingCommands.ClockingLift(clocking)
                 .alongWith(IntakeCommands.IntakeOff(intake))
-                .alongWith(InstantCmd(intake::stopReading))
                 .alongWith(DoorLock(door)),
-        WaitCmd(0.5),
-        SlidesCommands.SlidesHomeCommand(slides),
+        WaitCmd(0.3),
+        SlidesCommands.SlidesHomeCommand(slides)
+                .alongWith(InstantCmd(intake::stopReading)),
 ) {
         init {
                 addRequirements(intake, turret, arm, slides, clocking, door )

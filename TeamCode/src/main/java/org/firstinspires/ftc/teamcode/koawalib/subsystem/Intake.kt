@@ -22,8 +22,8 @@ class Intake(motor: KMotor, private val sensor: KDistanceSensor) : KIntake(motor
         lastRead = sensor.lastRead
     }
 
-    fun fastIntake() {
-        setIntakeSpeed(1.0)
+    fun slowIntake() {
+        setIntakeSpeed(-0.1)
     }
 
     fun outtake() {

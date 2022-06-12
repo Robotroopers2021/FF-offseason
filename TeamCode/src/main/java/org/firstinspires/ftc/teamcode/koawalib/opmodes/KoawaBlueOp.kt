@@ -24,7 +24,7 @@ class KoawaBlueOp : KOpMode() {
             isLogging = true,
             isPrinting = false,
             isLoggingTelemetry = true,
-            isDebugging = false,
+            isDebugging = true,
             maxErrorCount = 1
         )
 
@@ -34,7 +34,7 @@ class KoawaBlueOp : KOpMode() {
         bindDeposit()
         bindIntake()
         bindTurret()
-        bindCapping()
+//        bindCapping()
         bindTest()
 
 //        koawa.hardware.leftRetract.startAt(0.0)
@@ -48,8 +48,7 @@ class KoawaBlueOp : KOpMode() {
                 koawa.drive,
                 driver.leftStick,
                 driver.rightStick,
-                1.0, 1.0, 0.65,
-                xScalar = 0.75, yScalar = 0.75
+                1.0, 1.0, 0.85,
             )
         )
     }
