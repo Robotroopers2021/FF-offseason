@@ -282,18 +282,7 @@ open class AkazaBlueOp : OpMode() {
     }
 
     private fun capControl() {
-        if (gamepad2.dpad_up) {
-            capServo.power = 1.0
-        }
-        if (gamepad2.dpad_down) {
-            capServo.power = -1.0
-        }
-        if (!gamepad2.dpad_up) {
-            capServo.power = 0.0
-        }
-        if (!gamepad2.dpad_down) {
-            capServo.power = 0.0
-        }
+        capServo.power = -gamepad2.left_stick_y.toDouble()
     }
 
     private fun distanceSensorControl() {
