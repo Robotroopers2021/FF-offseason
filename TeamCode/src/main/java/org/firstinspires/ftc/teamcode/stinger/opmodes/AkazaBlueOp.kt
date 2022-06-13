@@ -32,13 +32,14 @@ class AkazaBlueOp : KOpMode() {
         bindArm()
         bindOuttake()
         bindIntake()
+        bindCap()
     }
 
     private fun bindDrive() {
         stinger.drive.setDefaultCommand(
             MecanumCmd(
                 stinger.drive,
-                driver.leftStick.yInverted,
+                driver.leftStick,
                 driver.rightStick,
                 0.85, 0.85, 0.65,
                 xScalar = 0.75, yScalar = 0.75
@@ -63,12 +64,19 @@ class AkazaBlueOp : KOpMode() {
     private fun bindOuttake() {
         gunner.a.onPress(OpenCmd(stinger.outtake).alongWith(RedCmd(stinger.lights)))
         gunner.b.onPress(OuttakeCmd(stinger.outtake).alongWith(RedCmd(stinger.lights)))
-        gunner.x.onPress(LockCmd(stinger.outtake).alongWith(GreenCmd(stinger.lights)))
+        gunner.x.onPress(LockCmd(stinger.outtake)
+            .alongWith(GreenCmd(stinger.lights))
+            .alongWith(IntakeCommands.IntakeOff(stinger.intake)))
     }
 
     private fun bindIntake() {
         driver.leftTrigger.onPress(IntakeSequenceCommand(stinger.intake, stinger.outtake, stinger.lights))
-        driver.rightTrigger.onPress(IntakeCommands.IntakeReverseSequence(stinger.intake).cancelIf { driver.rightTrigger.isJustReleased })
+        driver.rightTrigger.whilePressed(IntakeCommands.IntakeReverseSequence(stinger.intake).cancelIf { driver.rightTrigger.isJustReleased })
+    }
+
+    private fun bindCap() {
+        gunner.dpadUp.onPress(ForwardCap(stinger.cap).cancelIf { gunner.dpadUp.isJustReleased })
+        gunner.dpadDown.onPress(ReverseCap(stinger.cap).cancelIf { gunner.dpadDown.isJustReleased })
     }
 
     override fun mLoop() {

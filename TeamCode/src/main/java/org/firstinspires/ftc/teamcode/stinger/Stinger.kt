@@ -14,6 +14,7 @@ class Stinger {
     val arm = Arm(hardware.armMotor)
     val outtake = Outtake(hardware.outtakeServo)
     val lights = Lights(hardware.lightsServo)
+    val cap = Cap(hardware.capServo)
 
     init {
         arm.motor.encoder.zero(-55.0).update()

@@ -5,7 +5,7 @@ import com.asiankoala.koawalib.subsystem.DeviceSubsystem
 
 class Arm(val motor : KMotorEx) : DeviceSubsystem() {
     companion object ArmConstants {
-        const val depositAngle = 94.0
+        const val depositAngle = 86.5
         const val restAngle = -55.0
         const val sharedAngle = 172.0
         const val sharedAngleAlliance = 178.0

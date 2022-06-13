@@ -7,6 +7,7 @@ import com.asiankoala.koawalib.hardware.motor.KMotor
 import com.asiankoala.koawalib.hardware.motor.KMotorEx
 import com.asiankoala.koawalib.hardware.motor.KMotorExConfig
 import com.asiankoala.koawalib.hardware.sensor.KDistanceSensor
+import com.asiankoala.koawalib.hardware.servo.KCRServo
 import com.asiankoala.koawalib.hardware.servo.KServo
 import org.firstinspires.ftc.teamcode.stinger.subsystems.Lights
 import org.firstinspires.ftc.teamcode.stinger.subsystems.Outtake
@@ -24,6 +25,7 @@ class HardwareMap {
 
     val outtakeServo = KServo("Outtake").startAt(Outtake.openPosition)
     val lightsServo = KServo("blinkin").startAt(Lights.redPosition)
+    val capServo = KCRServo("Cap")
 
     val armMotor = KMotorEx(
         KMotorExConfig(
@@ -35,7 +37,7 @@ class HardwareMap {
             PIDConstants(
                 kP = 0.015,
                 kI = 0.0,
-                kD = 0.0005
+                kD = 0.00075
             ),
             FeedforwardConstants(
                 kCos = 0.275

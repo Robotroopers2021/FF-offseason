@@ -11,14 +11,14 @@ class IntakeSequenceCommand (intake: Intake, outtake: Outtake, lights: Lights) :
         .alongWith(IntakeCommands.IntakeOn(intake))
         .alongWith(InstantCmd(intake::startReading)),
     WaitForCmd(intake::hasMineral),
-    WaitCmd(0.2),
+    InstantCmd(intake::stopReading),
+    WaitCmd(0.1),
     LockCmd(outtake)
         .alongWith(IntakeCommands.IntakeOff(intake))
-        .alongWith(GreenCmd(lights))
-        .alongWith(InstantCmd(intake::stopReading)),
-    WaitCmd(0.3),
+        .alongWith(GreenCmd(lights)),
+    WaitCmd(0.01),
     IntakeCommands.IntakeReverse(intake),
-    WaitCmd(0.75),
+    WaitCmd(0.5),
     IntakeCommands.IntakeOff(intake)
 ) {
     init {

@@ -9,8 +9,8 @@ import com.qualcomm.hardware.rev.RevBlinkinLedDriver
 class Lights(private val servo : KServo) : DeviceSubsystem() {
 
     companion object LightConstants {
-        const val redPosition = 0.61
-        const val greenPosition = 0.77
+        const val redPosition = 0.59
+        const val greenPosition = 0.75
     }
     fun red() {
         servo.position = redPosition

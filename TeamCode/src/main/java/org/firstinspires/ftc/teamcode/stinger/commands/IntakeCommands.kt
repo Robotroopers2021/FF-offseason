@@ -10,7 +10,7 @@ class IntakeCommands {
     class IntakeReverse(private val intake: Intake) : InstantCmd(intake::turnReverse, intake)
 
     class IntakeReverseSequence(private val intake: Intake) : SequentialGroup(
-        InstantCmd(intake::turnReverse, intake)
+        InstantCmd(intake::turnReverse)
     ){
         init {
             addRequirements(intake)
