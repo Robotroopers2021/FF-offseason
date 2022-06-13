@@ -17,7 +17,7 @@ class Arm {
 
         arm.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
         arm.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
-        arm.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
+        arm.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
 
         armController.reset()
         targetAngle = restAngle

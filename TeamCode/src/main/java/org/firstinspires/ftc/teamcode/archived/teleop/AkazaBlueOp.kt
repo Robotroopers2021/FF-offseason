@@ -28,7 +28,7 @@ import kotlin.math.cos
 @Config
 @TeleOp
 @Disabled
-open class AkazaRedOp : OpMode() {
+open class AkazaBlueOp : OpMode() {
     lateinit var fl: DcMotor
     lateinit var fr: DcMotor
     lateinit var bl: DcMotor
@@ -50,7 +50,6 @@ open class AkazaRedOp : OpMode() {
 
     lateinit var displayKind: DisplayKind
     lateinit var ledCycleDeadline: Deadline
-
 
     var value = 0.0
 
@@ -209,51 +208,51 @@ open class AkazaRedOp : OpMode() {
         }
     }
 
-    private enum class RedDuckSpinnerStates {
+
+    private enum class DuckSpinnerStates {
         RUN_SLOW,
         RUN_FAST,
         YEET,
         STOP
     }
 
-    private val redDuckSpinnerSequence = StateMachineBuilder<RedDuckSpinnerStates>()
-        .state(RedDuckSpinnerStates.RUN_SLOW)
+    private val duckSpinnerSequence = StateMachineBuilder<DuckSpinnerStates>()
+        .state(DuckSpinnerStates.RUN_SLOW)
         .onEnter {
-            duck.power = -0.25
-        }
-        .transitionTimed(0.45)
-        .state(RedDuckSpinnerStates.RUN_FAST)
-        .onEnter {
-            duck.power = -0.35
+            duck.power = 0.25
         }
         .transitionTimed(0.5)
-        .state(RedDuckSpinnerStates.YEET)
+        .state(DuckSpinnerStates.RUN_FAST)
         .onEnter {
-            duck.power = -0.85
+            duck.power = 0.35
+        }
+        .transitionTimed(0.5)
+        .state(DuckSpinnerStates.YEET)
+        .onEnter{
+            duck.power = 0.85
         }
         .transitionTimed(0.4)
-        .state(RedDuckSpinnerStates.STOP)
-        .onEnter{
+        .state(DuckSpinnerStates.STOP)
+        .onEnter {
             duck.power = 0.0
         }
+
         .build()
 
-
-
-    private fun redDuckSpinnerSequenceStart() {
-        if (gamepad1.dpad_up_pressed && !redDuckSpinnerSequence.running) {
-            redDuckSpinnerSequence.start()
+    private fun duckSpinnerSequenceStart() {
+        if (gamepad1.dpad_up_pressed && !duckSpinnerSequence.running) {
+            duckSpinnerSequence.start()
         }
-        if (!gamepad1.dpad_up_pressed && redDuckSpinnerSequence.running) {
-            redDuckSpinnerSequence.stop()
-            redDuckSpinnerSequence.reset()
+        if (!gamepad1.dpad_up_pressed && duckSpinnerSequence.running) {
+            duckSpinnerSequence.stop()
+            duckSpinnerSequence.reset()
             motionTimer.reset()
         }
         if (!gamepad1.dpad_up_pressed) {
             duck.power = 0.0
         }
-        if (redDuckSpinnerSequence.running && gamepad1.dpad_up_pressed) {
-            redDuckSpinnerSequence.update()
+        if (duckSpinnerSequence.running && gamepad1.dpad_up_pressed) {
+            duckSpinnerSequence.update()
         }
 
     }
@@ -341,7 +340,7 @@ open class AkazaRedOp : OpMode() {
 
         arm.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER
         arm.mode = DcMotor.RunMode.RUN_WITHOUT_ENCODER
-        arm.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.FLOAT
+        arm.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
 
         outtakeServo.position = 0.90
         armController.reset()
@@ -359,7 +358,7 @@ open class AkazaRedOp : OpMode() {
         intakeControl()
         outtakeControl()
         //distanceSensorControl()
-        redDuckSpinnerSequenceStart()
+        duckSpinnerSequenceStart()
         BlinkBlink()
         getValue()
         telemetry()
@@ -368,7 +367,7 @@ open class AkazaRedOp : OpMode() {
     companion object {
         @JvmStatic var kp = 0.015
         @JvmStatic var ki = 0.0
-        @JvmStatic var kd = 0.00075
+        @JvmStatic var kd = 0.0005
         @JvmStatic var targetAngle = 0.0
         @JvmStatic var kcos = 0.275
         @JvmStatic var kv = 0.0
