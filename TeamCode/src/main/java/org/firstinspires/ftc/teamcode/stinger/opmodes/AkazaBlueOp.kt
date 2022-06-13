@@ -5,6 +5,7 @@ import com.asiankoala.koawalib.command.commands.InstantCmd
 import com.asiankoala.koawalib.command.commands.MecanumCmd
 import com.asiankoala.koawalib.logger.Logger
 import com.asiankoala.koawalib.logger.LoggerConfig
+import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.stinger.Stinger
 import org.firstinspires.ftc.teamcode.stinger.commands.DuckSequenceCommand
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.teamcode.stinger.commands.ResetCmd
 import org.firstinspires.ftc.teamcode.stinger.subsystems.*
 
 @TeleOp
+@Disabled
 class AkazaBlueOp : KOpMode() {
     private lateinit var stinger: Stinger
 

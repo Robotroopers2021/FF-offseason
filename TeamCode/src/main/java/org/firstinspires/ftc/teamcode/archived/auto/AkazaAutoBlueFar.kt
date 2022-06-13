@@ -175,6 +175,7 @@ class AkazaAutoBlueFar : OpMode() {
         intakeMotor.zeroPowerBehavior = DcMotor.ZeroPowerBehavior.BRAKE
         distanceSensor = hardwareMap.get(Rev2mDistanceSensor::class.java, "distanceSensor") as Rev2mDistanceSensor
 
+
         InitialDepositTrajTop = drive.trajectorySequenceBuilder(startPose)
             .setReversed(true)
             .splineToSplineHeading( Pose2d(3.0, 30.0, Math.toRadians(50.0)), Math.toRadians(220.0))
