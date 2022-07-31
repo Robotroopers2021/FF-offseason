@@ -8,7 +8,6 @@ import com.acmerobotics.roadrunner.control.PIDFController
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver.BlinkinPattern
-import com.qualcomm.robotcore.eventloop.opmode.Disabled
 import com.qualcomm.robotcore.eventloop.opmode.OpMode
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import com.qualcomm.robotcore.hardware.CRServo
@@ -283,15 +282,7 @@ open class AkazaRedOp : OpMode() {
     }
 
     private fun capControl() {
-        capServo.power = -gamepad2.left_stick_y.toDouble()
-    }
-
-    private fun distanceSensorControl() {
-        if (value <= 75.0) {
-            gamepad1.rumble(750)
-        } else {
-            gamepad1.stopRumble()
-        }
+        capServo.power = -gamepad2.left_stick_y.toDouble() * 0.25
     }
 
     private fun telemetry() {
@@ -375,7 +366,6 @@ open class AkazaRedOp : OpMode() {
         armControl()
         intakeControl()
         outtakeControl()
-        //distanceSensorControl()
         redDuckSpinnerSequenceStart()
         BlinkBlink()
         getValue()
@@ -389,7 +379,6 @@ open class AkazaRedOp : OpMode() {
         @JvmStatic var kd = 0.00075
         @JvmStatic var targetAngle = 0.0
         @JvmStatic var kcos = 0.275
-        @JvmStatic var kv = 0.0
         @JvmStatic var depositAngle = 94.0
         @JvmStatic var restAngle = -55.0
         @JvmStatic var sharedAngle = 172.0
