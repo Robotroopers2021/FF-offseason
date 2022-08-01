@@ -8,7 +8,7 @@ class Koawa {
 
     val hardware = Hardware()
 
-    val driveOdo = KThreeWheelOdometry(hardware.leftEncoder, hardware.rightEncoder, hardware.perpEncoder, 10.0, 1.0 )
+    val driveOdo = KThreeWheelOdometry(hardware.leftEncoder, hardware.rightEncoder, hardware.perpEncoder, 10.0, 51.5 )
 
     val drive = KMecanumDrive(hardware.fl, hardware.bl, hardware.fr, hardware.br)
 

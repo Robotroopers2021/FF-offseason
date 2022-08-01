@@ -4,6 +4,7 @@ import com.asiankoala.koawalib.command.KOpMode
 import com.asiankoala.koawalib.command.commands.MecanumCmd
 import com.asiankoala.koawalib.logger.Logger
 import com.asiankoala.koawalib.logger.LoggerConfig
+import com.asiankoala.koawalib.subsystem.odometry.KThreeWheelOdometry
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp
 import org.firstinspires.ftc.teamcode.perseus.Koawa
 import org.firstinspires.ftc.teamcode.perseus.commands.*
@@ -102,6 +103,7 @@ class KoawaBlueOp : KOpMode() {
         Logger.addTelemetryData("odoR pos", koawa.hardware.rightEncoder.position)
         Logger.addTelemetryData("odoL pos", koawa.hardware.leftEncoder.position)
         Logger.addTelemetryData("odoPerp pos", koawa.hardware.perpEncoder.position)
-        Logger.addTelemetryData("robot pose", koawa.driveOdo.pose)
+//        Logger.addTelemetryData("robot pose", koawa.driveOdo.pose)
+        koawa.driveOdo.updateTelemetry()
     }
 }
