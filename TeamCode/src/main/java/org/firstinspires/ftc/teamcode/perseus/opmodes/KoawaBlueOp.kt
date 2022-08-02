@@ -56,7 +56,7 @@ class KoawaBlueOp : KOpMode() {
         driver.rightTrigger.onPress(SlidesCommands.SlidesAllianceCommand(koawa.slides))
         driver.rightBumper.onPress(SlidesCommands.SlidesSharedExtCommand(koawa.slides))
         driver.a.onPress(SlidesCommands.SlidesSharedCommand(koawa.slides))
-        driver.b.onPress(ClockingCommands.ClockingDeposit(koawa.clocking)
+        gunner.b.onPress(ClockingCommands.ClockingDeposit(koawa.clocking)
             .alongWith(IntakeCommands.Outtake(koawa.intake))
             .alongWith(DoorOpen(koawa.door)))
     }
@@ -100,10 +100,5 @@ class KoawaBlueOp : KOpMode() {
         Logger.addTelemetryData("turret angle", koawa.turret.motor.encoder.position)
         Logger.addTelemetryData("arm angle", koawa.arm.motor.encoder.position)
         Logger.addTelemetryData("dSensor", koawa.hardware.loadingSensor.lastRead)
-        Logger.addTelemetryData("odoR pos", koawa.hardware.rightEncoder.position)
-        Logger.addTelemetryData("odoL pos", koawa.hardware.leftEncoder.position)
-        Logger.addTelemetryData("odoPerp pos", koawa.hardware.perpEncoder.position)
-//        Logger.addTelemetryData("robot pose", koawa.driveOdo.pose)
-        koawa.driveOdo.updateTelemetry()
     }
 }

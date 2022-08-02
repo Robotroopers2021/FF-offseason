@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.perseus
 
 import com.asiankoala.koawalib.subsystem.drive.KMecanumDrive
+import com.asiankoala.koawalib.subsystem.drive.KMecanumOdoDrive
 import com.asiankoala.koawalib.subsystem.odometry.KThreeWheelOdometry
 import org.firstinspires.ftc.teamcode.perseus.subsystem.*
 
@@ -8,9 +9,9 @@ class Koawa {
 
     val hardware = Hardware()
 
-    val driveOdo = KThreeWheelOdometry(hardware.leftEncoder, hardware.rightEncoder, hardware.perpEncoder, 10.0, 51.5 )
+    val driveOdo = KThreeWheelOdometry(hardware.leftEncoder, hardware.rightEncoder, hardware.perpEncoder, 10.0, 53.0)
 
-    val drive = KMecanumDrive(hardware.fl, hardware.bl, hardware.fr, hardware.br)
+    val drive = KMecanumOdoDrive(hardware.fl, hardware.bl, hardware.fr, hardware.br, driveOdo, true)
 
 //    val driveConstants = DriveConstants(
 //        TICKS_PER_REV = 8192.0,
